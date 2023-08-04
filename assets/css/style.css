@@ -286,7 +286,7 @@ figure {
 }
 
 .sub-bg {
-  background-color: #1a1a1a;
+  background-color: #000000bf;
 }
 
 .bg-gray1 {
@@ -1548,6 +1548,8 @@ img.left {
   margin: 0;
   padding: 0;
 }
+
+
 
 .social.circle-bord a {
   width: 40px;
