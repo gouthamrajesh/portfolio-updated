@@ -1,0 +1,46 @@
+*
+{
+    margin: 0;
+}
+.num1, .num4
+{
+    height: 500px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.num2, .num3
+{
+    height: 600px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+p
+{
+    font-size: 20px;
+    font-weight: 200;
+    width: 1200px;
+    margin: 15px;
+    color: aliceblue;
+}
+.num1
+{
+    background: linear-gradient(#09203F , #537895 );
+}
+.num2
+{
+    background: linear-gradient(#537895,#09203F);
+}
+.num3
+{
+    background: linear-gradient(#09203F , #537895 );
+}
+.num4
+{
+    background: linear-gradient(#537895,#09203F);
+}
