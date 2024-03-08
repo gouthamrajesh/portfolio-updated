@@ -1192,3 +1192,55 @@ If this is turned on, then smooth transition in the linear gradient cannot be ma
 45deg
 , #ffdf40, #ff8359)!important;
 }
+
+.education
+{
+  background: linear-gradient(#537895,#0f162b) ;
+}
+
+.education h2
+{
+  color: white;
+}
+
+.education h1
+{
+  font-size: 36px;
+  color: white;
+}
+
+.education .card-body
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.education h4
+{
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 100;
+  color: aqua;
+}
+
+.education .card
+{
+  background-image: url(../../imgs/gecbh.jpg);
+  background-size: cover;
+  box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.362);  
+  max-width: 450px;
+  height: 300px;
+}
+
+@media (min-width: 1280px)
+{
+  .education .card
+  {
+    background-image: url(../../imgs/gecbh.jpg);
+    background-size: cover;
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.362); 
+    width: 300px;
+    height: 300px;
+  }
+}
