@@ -1281,3 +1281,13 @@ If this is turned on, then smooth transition in the linear gradient cannot be ma
     height: 300px;
   }
 }
+
+.projects
+{
+  background: linear-gradient(#0f162b, #537895) ;
+}
+
+.projects .section-header h2
+{
+  color: white;
+}
