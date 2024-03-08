@@ -106,7 +106,7 @@ section {
   right: 15px;
   bottom: -15px;
   z-index: 99999;
-  background: var(--color-secondary);
+  background: #09203F;
   width: 44px;
   height: 44px;
   border-radius: 50px;
@@ -120,7 +120,7 @@ section {
 }
 
 .scroll-top:hover {
-  background: rgba(248, 90, 64, 0.8);
+  background: #09203F;
   color: #fff;
 }
 
@@ -1290,4 +1290,179 @@ If this is turned on, then smooth transition in the linear gradient cannot be ma
 .projects .section-header h2
 {
   color: white;
+}
+
+:root
+{ 
+  --main-color: #03C0A2; 
+}
+
+.pricingTable
+{
+    background: var(--main-color);
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    padding: 0 0 40px;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.pricingTable:before
+{
+    content:"";
+    background: #fff;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+    z-index: -1;
+}
+
+.pricingTable .pricingTable-header
+{
+    color: #fff;
+    background: var(--main-color);
+    padding: 20px 10px;
+    border-radius: 50px 50px 0 0;
+    text-transform: capitalize;
+    position: relative;
+    margin: 0 auto 40px;
+}
+
+.pricingTable .pricingTable-header:after
+{
+    content: "";
+    background: var(--main-color);
+    width: 35px;
+    height: 25px;
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+    bottom: -25px;
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.pricingTable .title
+{
+    font-size: 40px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0;
+}
+
+.pricingTable .pricing-content
+{
+    text-align: left;
+    padding: 0;
+    margin: 0 0 25px;
+    list-style: none;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+}
+
+.pricingTable .pricing-content li
+{
+    color: #666;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 35px;
+    letter-spacing: .5px;
+    padding: 0 0 0 28px;
+    margin: 0 0 7px;
+    position: relative;
+}
+
+.pricingTable .pricing-content li:last-child
+{ 
+  margin: 0; 
+}
+.pricingTable .pricing-content li:before
+{
+    content: "\f00c";
+    color: var(--main-color);
+    font-family: "Font Awesome 5 free";
+    font-weight: 900;
+    position: absolute;
+    top: 1px;
+    left: 0;
+}
+
+.pricingTable .pricing-content li.disable:before
+{ 
+  content: "\f00d"; 
+}
+
+.pricingTable .pricingTable-signup a
+{
+    color: var(--main-color);
+    background: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: capitalize;
+    padding: 7px 30px 8px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+}
+
+.pricingTable .pricingTable-signup a:hover
+{
+    color: #fff;
+    background-color: var(--main-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.pricingTable.blue
+{ 
+  --main-color: #206DF0; 
+}
+
+.pricingTable.orange
+{ 
+  --main-color: #FE6612; 
+}
+
+.pricingTable.violet
+{ 
+  --main-color: rgb(38, 34, 71); 
+}
+
+@media only screen and (max-width: 990px)
+{
+  .pricingTable{ margin: 0 0 40px; }
+}
+
+.pricingTable-content
+{
+  padding: 9px;
+  font-size: 15px;
+}
+
+.pricingTable h3
+{
+  font-size: 32px;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.pricingTable .pricingTable-content h6
+{
+  font-size: 20px;
+}
+
+.pricingTable-content .derma2
+{
+  font-size: 13.5px;
+}
+
+.projects .section-header p
+{
+  color: aqua;
+  padding: 20px;
 }
