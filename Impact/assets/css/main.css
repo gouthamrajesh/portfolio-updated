@@ -11,10 +11,11 @@
 /* Colors */
 :root 
 {
-  --color-default: #09203F ;
-  --color-primary: #09203F ;
-  --color-secondary: #09203F ;
+  --color-default: #0f162b ;
+  --color-primary: #0f162b ;
+  --color-secondary: #0f162b ;
 }
+
 
 /* Smooth scroll behavior */
 :root 
@@ -177,7 +178,7 @@ section {
 # Header
 --------------------------------------------------------------*/
 .topbar {
-  background: #09203fd4;
+  background: #0f162bd4;
   height: 40px;
   font-size: 14px;
   transition: all 0.5s;
@@ -230,7 +231,7 @@ section {
   transition: all 0.5s;
   z-index: 997;
   height: 90px;
-  background: #09203f ;
+  background: #0f162b ;
 }
 
 .header.sticked {
@@ -313,7 +314,7 @@ section {
     height: 2px;
     bottom: -6px;
     left: 0;
-    background:linear-gradient(#09203F , #537895 );
+    background:linear-gradient(#0f162b , #537895 );
     visibility: hidden;
     width: 0px;
     transition: all 0.3s ease-in-out 0s;
@@ -439,7 +440,7 @@ section {
     inset: 0;
     padding: 50px 0 10px 0;
     margin: 0;
-    background: linear-gradient(#09203F , #537895 );
+    background: linear-gradient(#0f162b , #537895 );
     overflow-y: auto;
     transition: 0.3s;
     z-index: 9998;
@@ -538,7 +539,7 @@ section {
     content: "";
     position: fixed;
     inset: 0;
-    background: linear-gradient(#09203F , #537895 );
+    background: linear-gradient(#0f162b , #537895 );
     z-index: 9996;
   }
 }
@@ -548,7 +549,7 @@ section {
 --------------------------------------------------------------*/
 .clients 
 {
-  background: linear-gradient( #537895 ,#09203F );
+  background: linear-gradient( #537895 ,#0f162b );
   padding: 40px 0;
 }
 
@@ -586,7 +587,7 @@ section {
 --------------------------------------------------------------*/
 .testimonials
 {
-  background: linear-gradient(#09203F , #537895);
+  background: linear-gradient(#0f162b , #537895);
 }
 .testimonials .testimonial-wrap {
   padding-left: 10px;
@@ -771,7 +772,7 @@ section {
 .hero {
   width: 100%;
   position: relative;
-  background: linear-gradient(#09203F , #537895 );
+  background: linear-gradient(#0f162b , #537895 );
   padding: 60px 0 0 0;
 }
 
@@ -780,12 +781,14 @@ section {
   color: white;
   font-style: italic;
 }
-
+/*
 @media (min-width: 1365px) {
   .hero {
     background-attachment: fixed;
   }
 }
+If this is turned on, then smooth transition in the linear gradient cannot be made possible.
+*/
 
 .hero h1 {
   font-size: 70px;
@@ -1035,4 +1038,40 @@ section {
 
 .footer .credits a {
   color: #fff;
+}
+
+
+/*--------------------------------------------------------------
+# About Me
+--------------------------------------------------------------*/
+.about-me
+{
+  background: linear-gradient(#537895,#0f162b) ;
+}
+
+.about-me .section-header h2
+{
+  color: white;
+}
+
+.about-me .section-header p
+{
+  color: aqua;
+}
+
+.about-me img
+{
+  height: 250px;
+  margin-top: 10px;
+  border: 3px solid aqua;
+}
+
+@media (min-width: 1280px) {
+  .about-me img
+  {
+    float: right;
+    height: 360px;
+    margin-top: -10px;
+    margin-left: 20px;
+  }
 }
