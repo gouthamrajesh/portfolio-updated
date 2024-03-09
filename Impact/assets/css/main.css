@@ -595,6 +595,11 @@ section {
   background: linear-gradient(#0f162b , #537895);
 }
 
+.testimonials .section-header p
+{
+  color: white;
+}
+
 .testimonials .testimonial-wrap 
 {
   padding-left: 10px;
@@ -1129,7 +1134,7 @@ If this is turned on, then smooth transition in the linear gradient cannot be ma
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #0f162ba3;
   background-clip: border-box;
   border: 0px solid rgba(0, 0, 0, 0);
   border-radius: .25rem;
@@ -1304,4 +1309,14 @@ If this is turned on, then smooth transition in the linear gradient cannot be ma
     max-width: 450px;
     height: 300px;
   }
+}
+
+.vol-exp
+{
+  background: linear-gradient(#537895,#0f162b);
+}
+
+.vol-exp .section-header h2
+{
+  color: white;
 }
