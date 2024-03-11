@@ -1060,10 +1060,6 @@ If this is turned on, then smooth transition in the linear gradient cannot be ma
   line-height: 26px;
 }
 
-.footer .copyright {
-  text-align: center;
-}
-
 .footer .credits {
   padding-top: 4px;
   text-align: center;
