@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Goutham Rajesh — Devin Community Ambassador</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0D0D0D;
+    --off: #F7F6F3;
+    --mid: #6B6B6B;
+    --rule: #E0DDD8;
+    --blue: #1A56FF;
+    --blue-soft: #EEF1FF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 48px;
+    background: rgba(247,246,243,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--ink);
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-size: 13px; color: var(--mid); text-decoration: none;
+    letter-spacing: 0.03em; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── SECTIONS ── */
+  section { padding: 120px 48px; max-width: 1100px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 140px; padding-bottom: 80px;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--blue);
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 8vw, 100px);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -0.03em; color: var(--ink);
+    opacity: 0; animation: fadeUp 0.7s 0.25s forwards;
+  }
+  .hero-name span {
+    display: block; color: var(--blue);
+  }
+  .hero-sub {
+    margin-top: 36px;
+    font-size: 18px; font-weight: 300; color: var(--mid);
+    max-width: 560px; line-height: 1.7;
+    opacity: 0; animation: fadeUp 0.7s 0.4s forwards;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-top: 40px;
+    opacity: 0; animation: fadeUp 0.7s 0.55s forwards;
+  }
+  .tag {
+    display: inline-block; padding: 6px 16px;
+    border: 1px solid var(--rule);
+    border-radius: 100px;
+    font-size: 12px; font-weight: 500; color: var(--mid);
+    background: white;
+  }
+  .tag.blue { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none; border-top: 1px solid var(--rule);
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  /* ── Q LABEL ── */
+  .q-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--blue);
+    margin-bottom: 20px;
+  }
+  .section-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -0.02em; color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  /* ── Q1 ── */
+  #q1 .body {
+    font-size: 19px; font-weight: 300; color: #2a2a2a;
+    line-height: 1.75; max-width: 740px;
+  }
+  #q1 .body strong { font-weight: 500; color: var(--ink); }
+
+  /* ── Q2 EVENTS ── */
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+    margin-top: 16px;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .event-card {
+    background: white;
+    padding: 32px 28px;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .event-card:hover { background: var(--blue-soft); }
+  .event-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 28px; right: 28px;
+    height: 1px; background: var(--rule);
+  }
+  .event-year {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue); font-weight: 500; margin-bottom: 10px;
+  }
+  .event-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px; font-weight: 700; color: var(--ink);
+    margin-bottom: 10px; line-height: 1.3;
+  }
+  .event-desc {
+    font-size: 14px; color: var(--mid); line-height: 1.6;
+  }
+  .event-scale {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--ink);
+    border-bottom: 2px solid var(--blue); padding-bottom: 2px;
+  }
+
+  /* ── Q2 STATEMENT ── */
+  .statement-bar {
+    margin-top: 48px;
+    background: var(--ink); color: white;
+    padding: 36px 40px; border-radius: 12px;
+    display: flex; align-items: center; gap: 32px;
+    flex-wrap: wrap;
+  }
+  .statement-bar .big {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 800; color: var(--blue);
+    flex-shrink: 0;
+  }
+  .statement-bar .label {
+    font-size: 16px; color: #ccc; font-weight: 300; max-width: 380px;
+  }
+
+  /* ── Q3 COMMUNITIES ── */
+  .community-list { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+  .community-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .community-item:first-child { border-top: 1px solid var(--rule); }
+  .community-org {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700; color: var(--ink);
+    padding-top: 3px;
+  }
+  .community-role {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--blue); margin-top: 4px;
+  }
+  .community-body {
+    font-size: 15px; color: #3a3a3a; line-height: 1.65;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 40px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px;
+    max-width: 100%;
+  }
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px; font-weight: 700; color: var(--mid);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .footer-contact { font-size: 13px; color: var(--mid); }
+  .footer-contact a { color: var(--blue); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav { padding: 16px 20px; }
+    .nav-links { display: none; }
+    section { padding: 80px 20px; }
+    #hero { padding: 120px 20px 60px; }
+    footer { padding: 32px 20px; }
+    .community-item { grid-template-columns: 1fr; gap: 8px; }
+    .statement-bar { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-name">Goutham Rajesh</div>
+  <div class="nav-links">
+    <a href="#q1">About</a>
+    <a href="#q2">Events</a>
+    <a href="#q3">Communities</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div style="padding: 0 48px;">
+  <section id="hero">
+    <p class="hero-eyebrow">Devin Community Ambassador — Application</p>
+    <h1 class="hero-name">
+      Goutham<br>
+      <span>Rajesh</span>
+    </h1>
+    <p class="hero-sub">
+      Product Engineer building the future of voice AI. Global IEEE leader. 2× founder. Someone who has spent a decade making things happen — at every scale.
+    </p>
+    <div class="hero-tags">
+      <span class="tag blue">Product Engineer · Vobiz AI</span>
+      <span class="tag">IEEE Outstanding Volunteer · APAC Region</span>
+      <span class="tag">2× Founder</span>
+      <span class="tag">Bangalore, India</span>
+    </div>
+  </section>
+</div>
+
+<hr class="divider">
+
+<!-- Q1 -->
+<section id="q1">
+  <p class="q-label reveal">Q1 — Who I Am</p>
+  <h2 class="section-heading reveal">Builder. Leader. Connector.</h2>
+  <div class="body reveal">
+    <p>
+      I'm a <strong>Product Engineer at Vobiz AI</strong>, where we're building telephony infrastructure for the next generation of voice AI agents. My work spans AI integration, internal automation, product scaling, and driving the company's US go-to-market — operating at the intersection of deep technology and business strategy.
+    </p>
+    <br>
+    <p>
+      Beyond the product work, I'm a <strong>global IEEE leader</strong> — recognised as an <strong>Outstanding Volunteer by the IEEE Asia-Pacific Region (R10)</strong> for my contributions across the IEEE ecosystem. I led the student branch at GEC Barton Hill to become the <strong>first and only university in the world to win every award offered by the IEEE MGA Global Students Department</strong> — a record that stands to this day. I currently serve in an industry-focused leadership capacity at IEEE Kerala Section, driving communities around innovation and entrepreneurship.
+    </p>
+    <br>
+    <p>
+      I'm also a <strong>2× founder</strong>, with a track record of building AI-powered products that reach real users across multiple countries. What drives me is simple: I want to be in the rooms where things get built — and make sure the right people are in those rooms with me.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Q2 -->
+<section id="q2">
+  <p class="q-label reveal">Q2 — Events</p>
+  <h2 class="section-heading reveal">On every stage that mattered.</h2>
+
+  <div class="events-grid reveal">
+
+    <div class="event-card">
+      <div class="event-year">2023 · Malaysia</div>
+      <div class="event-title">IEEE CS SYP Global Congress</div>
+      <div class="event-desc">Represented the student voice on a global platform — selected as a speaker and led the Indian delegation at IEEE's premier international student congress on Ethical AI.</div>
+      <div class="event-scale">International</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-year">2023 · Kerala</div>
+      <div class="event-title">All Kerala Student Congress</div>
+      <div class="event-desc">Helmed the coordination of Kerala's largest Techno-Managerial Conclave — 2,000+ attendees, 14+ technical tracks, and ₹10L+ in sponsorships secured.</div>
+      <div class="event-scale">2,000+ Audience</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-year">2022–23 · Multi-Day</div>
+      <div class="event-title">EXORDIUM & EXORDIUM 2.0</div>
+      <div class="event-desc">Drove the flagship event of IEEE SB GECBH from concept to execution across two editions — winning the <strong>Darrel Chong Gold Award</strong>, IEEE's highest global student activity honour.</div>
+      <div class="event-scale">Darrel Chong Gold</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-year">2022 · IEEE Kerala Section</div>
+      <div class="event-title">WIE International Leadership Summit</div>
+      <div class="event-desc">Central to the execution of one of IEEE's most prestigious leadership summits — managing 140+ participants and 20+ international speakers end-to-end.</div>
+      <div class="event-scale">140+ Participants</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-year">2023 · International Conference</div>
+      <div class="event-title">PESGRE International Conference</div>
+      <div class="event-desc">Led full on-ground operations for this international IEEE conference — delegate experience, speaker logistics, crowd management, and venue from start to finish.</div>
+      <div class="event-scale">International</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-year">2022 · IEEE India Council</div>
+      <div class="event-title">INDICON 2022</div>
+      <div class="event-desc">Represented IEEE Kerala Section at India's flagship IEEE conference — embedded across hybrid operations, senior ExeCom sessions, and delegate coordination.</div>
+      <div class="event-scale">National Flagship</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-year">2024 · Pan-India</div>
+      <div class="event-title">TPF National Product Case Competition</div>
+      <div class="event-desc">Core organiser of The Product Folks' national-level competition across 25+ Tier-I institutions — part of Asia's largest curated product management community event.</div>
+      <div class="event-scale">25+ Top Campuses</div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-year">2023 · Section-wide</div>
+      <div class="event-title">Volunteer Induction Program</div>
+      <div class="event-desc">Initiated and led this Kerala Section-wide program to onboard student volunteers — inaugurated with a Chair of IEEE's Global Educational Activities Committee as speaker.</div>
+      <div class="event-scale">Section-wide Launch</div>
+    </div>
+
+  </div>
+
+  <div class="statement-bar reveal">
+    <div class="big">200+</div>
+    <div class="label">Events coordinated across IEEE's global, regional, and section-level organisational units — as the person driving them forward.</div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Q3 -->
+<section id="q3">
+  <p class="q-label reveal">Q3 — Communities</p>
+  <h2 class="section-heading reveal">Where I show up and what I lead.</h2>
+
+  <div class="community-list">
+
+    <div class="community-item reveal">
+      <div>
+        <div class="community-org">IEEE Kerala Section</div>
+        <div class="community-role">Industry-Focused Leader</div>
+      </div>
+      <div class="community-body">
+        Currently leading communities at IEEE Kerala Section centred on <strong>innovation and entrepreneurship</strong> — bridging the technical and startup ecosystems of Kerala. I serve as STEM Champion & vTools Coordinator, connecting pre-university education to the broader innovation pipeline across the section.
+      </div>
+    </div>
+
+    <div class="community-item reveal">
+      <div>
+        <div class="community-org">IEEE — Global & APAC</div>
+        <div class="community-role">Outstanding Volunteer · R10</div>
+      </div>
+      <div class="community-body">
+        Recognised with the <strong>Outstanding Volunteer Award by IEEE's Asia-Pacific Region (R10)</strong>. Led international teams, represented the student voice at global IEEE forums, and drove the student branch at GEC Barton Hill to become the first in the world to win every IEEE MGA global student award.
+      </div>
+    </div>
+
+    <div class="community-item reveal">
+      <div>
+        <div class="community-org">The Product Folks</div>
+        <div class="community-role">Core Team · Campus Division Lead</div>
+      </div>
+      <div class="community-body">
+        Core team member of Asia's largest curated PM community. I lead the Campus Club Division — scaled from 10 to 40+ active colleges across India. Directly connected to a wide network of senior product managers, founders, and operators across the region.
+      </div>
+    </div>
+
+    <div class="community-item reveal">
+      <div>
+        <div class="community-org">Kerala Startup Mission</div>
+        <div class="community-role">Leadership Roles · Tech & Entrepreneurship</div>
+      </div>
+      <div class="community-body">
+        Actively involved in leadership roles at Kerala Startup Mission — contributing to the state's startup ecosystem through initiatives around technical innovation and entrepreneurship, working alongside founders, mentors, and policymakers.
+      </div>
+    </div>
+
+    <div class="community-item reveal">
+      <div>
+        <div class="community-org">Microsoft MLSA</div>
+        <div class="community-role">Beta Level Ambassador</div>
+      </div>
+      <div class="community-body">
+        Beta-level Microsoft Learn Student Ambassador — delivered 10+ technical sessions and coordinated 20+ events and international summits, connecting student developers to Microsoft's global ecosystem.
+      </div>
+    </div>
+
+    <div class="community-item reveal">
+      <div>
+        <div class="community-org">IEEE Smart Cities</div>
+        <div class="community-role">Committee Member · Global</div>
+      </div>
+      <div class="community-body">
+        One of the first student members to serve on the committees of IEEE Smart Cities globally — contributing to marketing, education, R&D, and the Smart Cities Contest across two consecutive years.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Goutham Rajesh · Devin Ambassador Application</div>
+  <div class="footer-contact">
+    <a href="mailto:gouthamrajesh@ieee.org">gouthamrajesh@ieee.org</a> &nbsp;·&nbsp; Bangalore, India
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1b1030">
+<title>𓂀 The Chronicles of Goutham Rajesh</title>
+<meta name="description" content="An ancient-Egyptian-themed retelling of Goutham Rajesh's career: Product Engineer at Vobiz AI, IEEE leader, and 2x founder.">
+<link rel="icon" href="../imgs/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cinzel+Decorative:wght@700;900&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+Egyptian+Hieroglyphs&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: #e8d4a0;
+    background-image:
+      radial-gradient(ellipse at 12% 15%, rgba(120,80,20,0.14) 0%, transparent 30%),
+      radial-gradient(ellipse at 88% 70%, rgba(120,80,20,0.12) 0%, transparent 35%),
+      repeating-linear-gradient(90deg, transparent 0 3px, rgba(90,60,10,0.025) 3px 4px);
+    color: #2b1d0e;
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  .glyph { font-family: 'Noto Sans Egyptian Hieroglyphs', serif; }
+  a { color: inherit; }
+  img { max-width: 100%; display: block; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 32px; background: rgba(15,9,28,0.94); border-bottom: 3px double #d4af37;
+  }
+  .nav-title { font-family: 'Cinzel', serif; font-weight: 700; color: #f0c862; font-size: 15px; letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px; }
+  .nav-title svg { width: 22px; height: 26px; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .nav-links a { font-family: 'Cinzel', serif; font-size: 11.5px; color: #d9c896; text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-links a:hover { color: #f0c862; }
+
+  /* ── HERO ── */
+  .hero { position: relative; height: 88vh; min-height: 540px; overflow: hidden; }
+  .hero svg.scene { width: 100%; height: 100%; display: block; }
+  .hero-caption {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 0 24px; color: #f6e6bd;
+  }
+  .pharaoh-mask-icon { width: 92px; height: auto; margin: 0 auto 16px; filter: drop-shadow(0 6px 20px rgba(240,200,98,0.45)); }
+  .hero-eyebrow { font-family: 'Cinzel', serif; letter-spacing: 0.3em; font-size: 12px; color: #f0c862; margin-bottom: 18px; text-transform: uppercase; }
+  .hero-title {
+    font-family: 'Cinzel Decorative', 'Cinzel', serif; font-weight: 900; font-size: clamp(28px, 5.5vw, 58px);
+    text-shadow: 0 2px 24px rgba(240,200,98,0.35); margin-bottom: 16px; line-height: 1.2;
+  }
+  .hero-sub { font-family: 'Cinzel', serif; font-size: 14px; color: #e3cf9e; letter-spacing: 0.04em; max-width: 620px; margin: 0 auto 30px; }
+  .hero-cta {
+    font-family: 'Cinzel', serif; display: inline-block; border: 1px solid #f0c862; color: #f0c862;
+    padding: 12px 28px; text-decoration: none; letter-spacing: 0.08em; font-size: 12px; text-transform: uppercase;
+    transition: background .2s, color .2s;
+  }
+  .hero-cta:hover { background: #f0c862; color: #1b1030; }
+
+  /* ── HIEROGLYPH FRIEZE ── */
+  .frieze {
+    background: linear-gradient(180deg, #3a2a5a, #1e1436);
+    border-top: 3px solid #d4af37; border-bottom: 3px solid #d4af37;
+    color: #f0c862; font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+    font-size: 24px; letter-spacing: 13px; text-align: center;
+    padding: 14px 8px; overflow: hidden; white-space: nowrap;
+  }
+
+  /* ── SECTIONS ── */
+  section { max-width: 940px; margin: 0 auto; padding: 76px 28px; position: relative; overflow: hidden; }
+  section[data-glyph]::before {
+    content: attr(data-glyph);
+    position: absolute; top: -70px; right: -50px; z-index: 0; pointer-events: none;
+    font-family: 'Noto Sans Egyptian Hieroglyphs', serif; font-size: 320px; line-height: 1;
+    color: rgba(107,74,23,0.07);
+  }
+  section > * { position: relative; z-index: 1; }
+
+  .title-row { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 32px; }
+  .obelisk { width: 13px; height: 62px; flex-shrink: 0; }
+
+  .band {
+    height: 9px; margin: -3px -3px 20px; border-radius: 4px 4px 0 0;
+    background: repeating-linear-gradient(90deg, #d4af37 0 14px, #1b3a6b 14px 28px, #b5893a 28px 42px);
+  }
+
+  .tablet {
+    background: #f4e8c8; border: 3px double #b5893a; border-radius: 4px; padding: 36px 44px 40px;
+    position: relative; box-shadow: 0 10px 40px rgba(60,40,10,0.18);
+  }
+  .tablet::before, .tablet::after {
+    font-family: 'Noto Sans Egyptian Hieroglyphs', serif; position: absolute; font-size: 22px; color: #b5893a; opacity: 0.7;
+  }
+  .tablet::before { content: '𓂀'; top: 10px; left: 14px; }
+  .tablet::after { content: '𓋹'; bottom: 10px; right: 14px; }
+  .section-eyebrow {
+    font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #a9782f;
+    margin-bottom: 14px; text-align: center;
+  }
+  .section-title {
+    font-family: 'Cinzel Decorative', 'Cinzel', serif; font-weight: 900; font-size: clamp(24px, 4vw, 34px);
+    text-align: center; color: #6b4a17;
+  }
+  .divider { text-align: center; font-family: 'Noto Sans Egyptian Hieroglyphs', serif; color: #b5893a; font-size: 20px; margin: 30px 0; letter-spacing: 14px; }
+
+  /* ── ABOUT / CARTOUCHE ── */
+  .about-wrap { text-align: center; }
+  .cartouche { position: relative; display: inline-flex; align-items: center; justify-content: center; padding: 22px 54px; margin-bottom: 26px; min-width: 260px; }
+  .cartouche svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .cartouche span {
+    position: relative; z-index: 1; font-family: 'Cinzel', serif; font-weight: 700; letter-spacing: 0.1em; color: #4a3210;
+  }
+  .about-bio { text-align: left; font-size: 17px; color: #3a2712; }
+
+  /* ── TIMELINE ── */
+  .stela { border-left: 4px solid #b5893a; padding: 4px 0 4px 26px; margin-bottom: 30px; position: relative; }
+  .stela::before { content: '𓉐'; font-family: 'Noto Sans Egyptian Hieroglyphs', serif; position: absolute; left: -17px; top: -2px; background: #e8d4a0; font-size: 20px; color: #a9782f; }
+  .stela h3 { font-family: 'Cinzel', serif; font-size: 19px; color: #4a3210; margin-bottom: 4px; }
+  .stela .role { font-style: italic; color: #6b4a17; font-size: 14.5px; margin-bottom: 10px; }
+  .stela ul { padding-left: 20px; }
+  .stela li { margin-bottom: 6px; font-size: 15.5px; color: #3a2712; }
+  .stela .badge {
+    font-family: 'Cinzel', serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+    border: 1px solid #a9782f; color: #a9782f; padding: 2px 9px; border-radius: 100px; margin-left: 8px;
+  }
+
+  /* ── SKILLS (AMULETS) ── */
+  .amulet-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 24px; }
+  .amulet-groups h4 { font-family: 'Cinzel', serif; font-size: 14px; color: #6b4a17; margin-bottom: 10px; text-align: center; }
+  .amulet-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .amulet {
+    font-family: 'Cinzel', serif; font-size: 11.5px; padding: 8px 14px; border-radius: 100px;
+    background: #6b4a17; color: #f6e6bd; letter-spacing: 0.02em;
+  }
+
+  /* ── PROJECTS (ARTIFACTS) ── */
+  .artifact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 22px; }
+  .artifact { border: 2px solid #b5893a; border-radius: 6px; padding: 22px; background: #f8efd6; }
+  .artifact h3 { font-family: 'Cinzel', serif; font-size: 16px; color: #4a3210; margin-bottom: 8px; }
+  .artifact p { font-size: 14.5px; color: #3a2712; margin-bottom: 10px; }
+  .artifact a { font-family: 'Cinzel', serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; border-bottom: 1px solid #6b4a17; }
+
+  /* ── ACHIEVEMENTS (TREASURES) ── */
+  .treasure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 20px; }
+  .treasure { text-align: center; border: 2px solid #d4af37; border-radius: 8px; padding: 18px 16px 22px; background: linear-gradient(180deg, #f8efd6, #f1e0af); }
+  .treasure-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+  .treasure h4 { font-family: 'Cinzel', serif; font-size: 13.5px; color: #4a3210; margin-bottom: 6px; }
+  .treasure p { font-size: 12.5px; color: #6b4a17; }
+
+  /* ── CONTACT ── */
+  #contact { text-align: center; }
+  .contact-sub { color: #4a3210; max-width: 520px; margin: 0 auto 30px; }
+  .scribe-btn {
+    font-family: 'Cinzel', serif; display: inline-block; background: #6b4a17; color: #f6e6bd; text-decoration: none;
+    padding: 16px 34px; border-radius: 4px; letter-spacing: 0.06em; font-size: 14px; text-transform: uppercase;
+  }
+  .social-row { margin-top: 26px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .social-row a { font-family: 'Cinzel', serif; font-size: 12px; text-decoration: none; border-bottom: 1px solid #6b4a17; color: #4a3210; }
+
+  footer {
+    background: #150b28; color: #d9c896; text-align: center; padding: 30px 20px; font-family: 'Cinzel', serif;
+    font-size: 11.5px; letter-spacing: 0.04em; border-top: 3px double #d4af37;
+  }
+  footer a { color: #f0c862; margin: 0 6px; text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    section { padding: 56px 18px; }
+    .tablet { padding: 28px 22px 32px; }
+    .frieze { font-size: 18px; letter-spacing: 8px; }
+    section[data-glyph]::before { font-size: 200px; }
+    .obelisk { height: 42px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-title">
+    <svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg"><use href="#pharaohMask"/></svg>
+    GOUTHAM RAJESH
+  </div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Deeds</a>
+    <a href="#skills">Knowledge</a>
+    <a href="#projects">Artifacts</a>
+    <a href="#achievements">Treasures</a>
+    <a href="#contact">Scribe</a>
+  </div>
+</nav>
+
+<!-- Shared defs: reused pharaoh mask + obelisk symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="pharaohMask">
+      <path d="M20,20 Q60,2 100,20 L106,55 Q106,90 80,112 L72,150 L48,150 L40,112 Q14,90 14,55 Z" fill="#d4af37"/>
+      <rect x="26" y="26" width="8" height="80" fill="#1b1030"/>
+      <rect x="44" y="18" width="8" height="98" fill="#1b1030"/>
+      <rect x="68" y="18" width="8" height="98" fill="#1b1030"/>
+      <rect x="86" y="26" width="8" height="80" fill="#1b1030"/>
+      <ellipse cx="60" cy="62" rx="24" ry="28" fill="#e8c078"/>
+      <path d="M46,58 Q60,52 74,58 Q60,66 46,58 Z" fill="#1b1030"/>
+      <path d="M58,6 Q68,-6 78,6 Q80,16 70,17 Q66,10 58,14 Z" fill="#c9a227"/>
+      <rect x="52" y="92" width="16" height="34" rx="5" fill="#d4af37"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="hero">
+  <svg class="scene" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#120a26"/>
+        <stop offset="45%" stop-color="#4a2a6b"/>
+        <stop offset="75%" stop-color="#a85a4e"/>
+        <stop offset="100%" stop-color="#e8a25a"/>
+      </linearGradient>
+      <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fff3cf"/>
+        <stop offset="55%" stop-color="#f6c667"/>
+        <stop offset="100%" stop-color="#f6c667" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect x="0" y="0" width="1200" height="500" fill="url(#sky)"/>
+    <g opacity="0.85">
+      <circle cx="230" cy="90" r="1.6" fill="#fff"/>
+      <circle cx="310" cy="140" r="1.2" fill="#fff"/>
+      <circle cx="140" cy="160" r="1.4" fill="#fff"/>
+      <circle cx="470" cy="70" r="1.6" fill="#fff"/>
+      <circle cx="620" cy="50" r="1.2" fill="#fff"/>
+      <circle cx="760" cy="110" r="1.6" fill="#fff"/>
+      <circle cx="900" cy="70" r="1.3" fill="#fff"/>
+      <circle cx="1020" cy="130" r="1.6" fill="#fff"/>
+      <circle cx="1090" cy="60" r="1.2" fill="#fff"/>
+      <circle cx="60" cy="90" r="1.2" fill="#fff"/>
+    </g>
+    <circle cx="640" cy="300" r="130" fill="url(#sun)"/>
+    <circle cx="640" cy="300" r="60" fill="#fbe4a6"/>
+
+    <!-- distant pyramids -->
+    <polygon points="990,230 1070,400 910,400" fill="#241a35" opacity="0.5"/>
+    <polygon points="330,180 460,400 200,400" fill="#241a35" opacity="0.65"/>
+    <polygon points="620,110 800,400 440,400" fill="#150e24"/>
+    <polygon points="620,110 710,400 620,400" fill="#0d0818" opacity="0.6"/>
+    <polygon points="850,260 905,400 795,400" fill="#1b1330" opacity="0.6"/>
+
+    <!-- obelisks flanking the pyramids -->
+    <g fill="#100a1f">
+      <polygon points="900,230 912,255 912,400 888,400 888,255"/>
+      <polygon points="900,230 912,255 888,255"/>
+    </g>
+    <g fill="#100a1f">
+      <polygon points="290,260 300,282 300,400 280,400 280,282"/>
+      <polygon points="290,260 300,282 280,282"/>
+    </g>
+
+    <!-- sphinx, foreground left -->
+    <g fill="#120a1f" opacity="0.94">
+      <rect x="55" y="358" width="185" height="42" rx="10"/>
+      <rect x="55" y="330" width="40" height="70" rx="7"/>
+      <path d="M195,285 L252,285 L260,308 L260,358 L188,358 L188,310 Z"/>
+      <path d="M252,308 L268,308 L268,358 L256,358 Z"/>
+      <rect x="42" y="394" width="40" height="16" rx="4"/>
+      <rect x="86" y="398" width="34" height="12" rx="3"/>
+    </g>
+
+    <!-- foredune -->
+    <path d="M0,400 Q150,375 300,398 T600,396 T900,400 T1200,390 L1200,500 L0,500 Z" fill="#1c1120"/>
+  </svg>
+  <div class="hero-caption">
+    <svg class="pharaoh-mask-icon" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg"><use href="#pharaohMask"/></svg>
+    <p class="hero-eyebrow glyph">𓂀 𓉐 𓋹 𓊪 𓋴 𓅓 𓆣 𓊹</p>
+    <h1 class="hero-title">The Chronicles of<br>Goutham Rajesh</h1>
+    <p class="hero-sub">PRODUCT ENGINEER, VOBIZ AI &nbsp;·&nbsp; PHARAOH OF THE VOICE AI REALM</p>
+    <a href="#about" class="hero-cta">Enter the Tomb ⟶</a>
+  </div>
+</div>
+
+<div class="frieze glyph" aria-hidden="true">𓂀 𓉐 𓋹 𓊪 𓋴 𓅓 𓆣 𓊹 𓂀 𓉐 𓋹 𓊪 𓋴 𓅓 𓆣 𓊹 𓂀 𓉐 𓋹 𓊪 𓋴 𓅓 𓆣 𓊹 𓂀 𓉐 𓋹 𓊪 𓋴 𓅓 𓆣 𓊹</div>
+
+<section id="about" data-glyph="𓂀">
+  <div class="tablet about-wrap">
+    <p class="section-eyebrow">The Inscription</p>
+    <div class="cartouche">
+      <svg viewBox="0 0 300 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="288" height="88" rx="44" fill="none" stroke="#6b4a17" stroke-width="6"/>
+        <line x1="294" y1="6" x2="294" y2="94" stroke="#6b4a17" stroke-width="6"/>
+      </svg>
+      <span>GOUTHAM RAJESH</span>
+    </div>
+    <p class="about-bio">
+      I'm a Product Engineer at Vobiz AI, a house that builds telephony infrastructure for voice AI agents. My work sits on the product side — automation, scaling the product, and data analytics — the same duties any product engineer carries, applied here to a voice AI platform.
+      Before this, I was cutting my teeth across two AI startups, an IEEE region spanning thousands of volunteers, and a machine learning model that reads fingerprints to guess IQ. I like being in the room where things get built, and making sure the right people are in it with me.
+    </p>
+    <p class="divider">𓆣 𓆣 𓆣</p>
+    <p class="about-bio" style="text-align:center;">Born in Kerala. Now dwelling in Bangalore, India.</p>
+  </div>
+</section>
+
+<div class="frieze glyph" aria-hidden="true">𓊹 𓆣 𓅓 𓋴 𓊪 𓋹 𓉐 𓂀 𓊹 𓆣 𓅓 𓋴 𓊪 𓋹 𓉐 𓂀 𓊹 𓆣 𓅓 𓋴 𓊪 𓋹 𓉐 𓂀 𓊹 𓆣 𓅓 𓋴 𓊪 𓋹 𓉐 𓂀</div>
+
+<section id="experience" data-glyph="𓉐">
+  <div class="title-row">
+    <svg class="obelisk" viewBox="0 0 20 90"><polygon points="10,0 14,10 14,90 6,90 6,10" fill="#a9782f"/><polygon points="10,0 14,10 6,10" fill="#d4af37"/></svg>
+    <div>
+      <p class="section-eyebrow">The Chronicle of Deeds</p>
+      <h2 class="section-title">A Record Carved in Stone</h2>
+    </div>
+    <svg class="obelisk" viewBox="0 0 20 90"><polygon points="10,0 14,10 14,90 6,90 6,10" fill="#a9782f"/><polygon points="10,0 14,10 6,10" fill="#d4af37"/></svg>
+  </div>
+
+  <div class="stela">
+    <h3>Vobiz AI <span class="badge">Present Era</span></h3>
+    <p class="role">Product Engineer · 2025 — Present · Remote</p>
+    <ul>
+      <li>Vobiz AI builds telephony infrastructure for voice AI agents.</li>
+      <li>Working the product side — automation, product scaling, and data analytics.</li>
+      <li>The standard product engineering mix, pointed at a voice AI platform.</li>
+    </ul>
+  </div>
+
+  <div class="stela">
+    <h3>Cuebo AI <span class="badge">Former Era</span></h3>
+    <p class="role">AI Product Engineer · 2025 · Remote</p>
+    <ul>
+      <li>Managed analytics for 4 clients, shaping roadmap decisions.</li>
+      <li>Automated workflows, saving 2.5 hours per user, daily.</li>
+      <li>Built the central data warehouse and standardized analytics + ticketing.</li>
+      <li>Led funnel analysis and root-cause investigations to improve performance.</li>
+    </ul>
+  </div>
+
+  <div class="stela">
+    <h3>The Product Folks <span class="badge">Guild</span></h3>
+    <p class="role">Product Management Fellow · Jun 2024 — Present</p>
+    <ul>
+      <li>Ran a national case competition across 25+ Tier-I campuses.</li>
+      <li>Scaled campus operations from 10 to 40+ colleges in 8 months.</li>
+    </ul>
+  </div>
+
+  <div class="stela">
+    <h3>IEEE Kerala Section <span class="badge">Apprenticeship</span></h3>
+    <p class="role">DevOps Intern · Jan 2022 — Dec 2022</p>
+    <ul>
+      <li>Delivered 5 applications to a public of 11,000+ users.</li>
+      <li>Led system design on 2 apps, quickening delivery by 25% via Agile.</li>
+      <li>Drove 680% user growth and 1560% link-generation growth on min.lc.</li>
+    </ul>
+  </div>
+
+  <div class="stela">
+    <h3>Origin — GEC Barton Hill <span class="badge">Foundation</span></h3>
+    <p class="role">B.Tech, Information Technology · 2020 — 2024 · CGPA 7.72/10</p>
+    <ul>
+      <li>APJ Abdul Kalam Technological University. Chair, IEEE Student Branch · Class Representative.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="frieze glyph" aria-hidden="true">𓋹 𓊪 𓋴 𓂀 𓊹 𓆣 𓅓 𓉐 𓋹 𓊪 𓋴 𓂀 𓊹 𓆣 𓅓 𓉐 𓋹 𓊪 𓋴 𓂀 𓊹 𓆣 𓅓 𓉐 𓋹 𓊪 𓋴 𓂀 𓊹 𓆣 𓅓 𓉐</div>
+
+<section id="skills" data-glyph="𓋹">
+  <div class="title-row">
+    <svg class="obelisk" viewBox="0 0 20 90"><polygon points="10,0 14,10 14,90 6,90 6,10" fill="#a9782f"/><polygon points="10,0 14,10 6,10" fill="#d4af37"/></svg>
+    <div>
+      <p class="section-eyebrow">Sacred Knowledge</p>
+      <h2 class="section-title">Amulets of the Trade</h2>
+    </div>
+    <svg class="obelisk" viewBox="0 0 20 90"><polygon points="10,0 14,10 14,90 6,90 6,10" fill="#a9782f"/><polygon points="10,0 14,10 6,10" fill="#d4af37"/></svg>
+  </div>
+  <div class="tablet">
+    <div class="band"></div>
+    <div class="amulet-groups">
+      <div>
+        <h4>Engineering</h4>
+        <div class="amulet-row">
+          <span class="amulet">JavaScript</span><span class="amulet">SQL</span><span class="amulet">Git/VCS</span><span class="amulet">Machine Learning</span>
+        </div>
+      </div>
+      <div>
+        <h4>Cloud &amp; Tools</h4>
+        <div class="amulet-row">
+          <span class="amulet">Google Cloud</span><span class="amulet">Microsoft Azure</span><span class="amulet">Jira</span><span class="amulet">Zapier</span><span class="amulet">MS Office</span>
+        </div>
+      </div>
+      <div>
+        <h4>Product &amp; Growth</h4>
+        <div class="amulet-row">
+          <span class="amulet">Product Management</span><span class="amulet">GTM Strategy</span><span class="amulet">Growth &amp; Community</span><span class="amulet">Branding</span>
+        </div>
+      </div>
+      <div>
+        <h4>Domain</h4>
+        <div class="amulet-row">
+          <span class="amulet">Voice AI Infrastructure</span><span class="amulet">Scrum/Agile</span><span class="amulet">Funnel &amp; RCA Analysis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="frieze glyph" aria-hidden="true">𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹</div>
+
+<section id="projects" data-glyph="𓆣">
+  <div class="title-row">
+    <svg class="obelisk" viewBox="0 0 20 90"><polygon points="10,0 14,10 14,90 6,90 6,10" fill="#a9782f"/><polygon points="10,0 14,10 6,10" fill="#d4af37"/></svg>
+    <div>
+      <p class="section-eyebrow">Artifacts Unearthed</p>
+      <h2 class="section-title">Works of the Hand</h2>
+    </div>
+    <svg class="obelisk" viewBox="0 0 20 90"><polygon points="10,0 14,10 14,90 6,90 6,10" fill="#a9782f"/><polygon points="10,0 14,10 6,10" fill="#d4af37"/></svg>
+  </div>
+  <div class="artifact-grid">
+    <div class="artifact">
+      <div class="band"></div>
+      <h3>Prep Persona</h3>
+      <p>AI interview prep platform with GPT-powered interviewer personas. 10+ paid users on a ₹9 subscription.</p>
+      <a href="https://prep-persona.netlify.app/" target="_blank" rel="noopener">Behold It →</a>
+    </div>
+    <div class="artifact">
+      <div class="band"></div>
+      <h3>Second Brain App</h3>
+      <p>AI institutional memory app — meeting minutes stored under master threads, queryable like memory itself.</p>
+      <a href="https://secondbrainapp.netlify.app/" target="_blank" rel="noopener">Behold It →</a>
+    </div>
+    <div class="artifact">
+      <div class="band"></div>
+      <h3>Make My MoU</h3>
+      <p>Automated MoU creation &amp; secure sharing, used by 120+ people across 3 countries, grown organically.</p>
+      <a href="https://makemymou.com/" target="_blank" rel="noopener">Behold It →</a>
+    </div>
+    <div class="artifact">
+      <div class="band"></div>
+      <h3>Dermatoglyphics Research</h3>
+      <p>Studied 200+ students to correlate fingerprint patterns with IQ; ML model reached 92% accuracy.</p>
+    </div>
+  </div>
+</section>
+
+<div class="frieze glyph" aria-hidden="true">𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣</div>
+
+<section id="achievements" data-glyph="𓊹">
+  <div class="title-row">
+    <svg class="obelisk" viewBox="0 0 20 90"><polygon points="10,0 14,10 14,90 6,90 6,10" fill="#a9782f"/><polygon points="10,0 14,10 6,10" fill="#d4af37"/></svg>
+    <div>
+      <p class="section-eyebrow">Treasures of the Tomb</p>
+      <h2 class="section-title">Honours Buried With Him</h2>
+    </div>
+    <svg class="obelisk" viewBox="0 0 20 90"><polygon points="10,0 14,10 14,90 6,90 6,10" fill="#a9782f"/><polygon points="10,0 14,10 6,10" fill="#d4af37"/></svg>
+  </div>
+  <div class="treasure-grid">
+    <div class="treasure"><div class="band"></div><span class="treasure-icon">🏅</span><h4>Outstanding Volunteer</h4><p>IEEE Asia-Pacific Region (R10)</p></div>
+    <div class="treasure"><div class="band"></div><span class="treasure-icon">🥇</span><h4>Darrel Chong Gold Award</h4><p>IEEE's highest global student honour</p></div>
+    <div class="treasure"><div class="band"></div><span class="treasure-icon">🌍</span><h4>First in the World</h4><p>GEC Barton Hill won every IEEE MGA global student award</p></div>
+    <div class="treasure"><div class="band"></div><span class="treasure-icon">📈</span><h4>200+ Events</h4><p>Coordinated across IEEE's global, regional &amp; section units</p></div>
+    <div class="treasure"><div class="band"></div><span class="treasure-icon">🚀</span><h4>Campus Division Lead</h4><p>The Product Folks — scaled 10 → 40+ colleges</p></div>
+    <div class="treasure"><div class="band"></div><span class="treasure-icon">🎓</span><h4>Microsoft MLSA</h4><p>Beta Ambassador — 10+ sessions delivered</p></div>
+    <div class="treasure"><div class="band"></div><span class="treasure-icon">🏙️</span><h4>IEEE Smart Cities</h4><p>Global Committee Member, 2 years</p></div>
+    <div class="treasure"><div class="band"></div><span class="treasure-icon">💡</span><h4>Kerala Startup Mission</h4><p>Leadership across tech &amp; entrepreneurship</p></div>
+  </div>
+</section>
+
+<div class="frieze glyph" aria-hidden="true">𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓 𓉐 𓊪 𓋴 𓂀 𓋹 𓊹 𓆣 𓅓</div>
+
+<section id="contact" data-glyph="𓅓">
+  <p class="section-eyebrow">Send Word to the Scribe</p>
+  <h2 class="section-title">Leave an Offering</h2>
+  <p class="contact-sub">Open to conversations about voice AI, product, or your next event that needs 200 more attendees than you planned for.</p>
+  <a href="mailto:gouthamrajesh02@gmail.com" class="scribe-btn">✉ gouthamrajesh02@gmail.com</a>
+  <div class="social-row">
+    <a href="https://github.com/gouthamrajesh" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/gouthamrajesh/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://twitter.com/GouthamRajesh4" target="_blank" rel="noopener">X / Twitter</a>
+  </div>
+</section>
+
+<footer>
+  <p class="glyph">𓂀 𓉐 𓋹 𓊪 𓋴 𓅓 𓆣 𓊹</p>
+  <p style="margin-top:10px;">© 2026 Goutham Rajesh. Preserved for eternity in Bangalore, India.</p>
+</footer>
+
+<script src="../shared/site.js"></script>
+<script>
+  SiteShared.injectViewModeSwitcher('egyptian');
+  SiteShared.initMusic({ youtubeId: 'Wjidgw4LpIM', label: 'Desert Ambience', icon: '𓂀' });
+</script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a0a">
+<title>guest@goutham:~$</title>
+<meta name="description" content="An interactive terminal you can type commands into to learn about Goutham Rajesh — Product Engineer at Vobiz AI.">
+<link rel="icon" href="../imgs/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: #060806;
+    color: #3dff6e;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 10;
+    background: repeating-linear-gradient(rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.18) 3px);
+    mix-blend-mode: multiply;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 11;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 130%);
+  }
+  #term {
+    max-width: 900px; margin: 0 auto; padding: 28px 22px 120px;
+    min-height: 100vh;
+  }
+  .line { white-space: pre-wrap; word-break: break-word; margin-bottom: 2px; }
+  .line.dim { color: #21a047; }
+  .line.hl { color: #baffce; font-weight: 700; }
+  .line.warn { color: #ffcf5c; }
+  .line.err { color: #ff6b6b; }
+  .line.mono-block { margin: 6px 0 12px; }
+  a { color: #7fffb0; }
+  .prompt-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .prompt-label { color: #3dff6e; white-space: nowrap; }
+  #cmdInput {
+    flex: 1; background: transparent; border: none; outline: none;
+    color: #baffce; font-family: inherit; font-size: inherit; caret-color: #3dff6e;
+  }
+  ::selection { background: #3dff6e; color: #05130a; }
+  h1.brand { display: none; }
+  .hint { color: #21a047; font-size: 12.5px; margin-top: 18px; }
+  table.ttbl { border-collapse: collapse; margin: 6px 0 12px; }
+  table.ttbl td { padding: 2px 14px 2px 0; vertical-align: top; }
+  table.ttbl td.k { color: #7fffb0; white-space: nowrap; }
+  @media (max-width: 560px) {
+    #term { padding: 18px 14px 100px; font-size: 13.5px; }
+  }
+</style>
+</head>
+<body>
+<h1 class="brand">Goutham Rajesh — Terminal</h1>
+<div id="term">
+  <div id="output"></div>
+  <div class="prompt-row">
+    <span class="prompt-label">guest@goutham:~$</span>
+    <input id="cmdInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="terminal command input">
+  </div>
+</div>
+
+<script src="../shared/site.js"></script>
+<script>
+  var music = SiteShared.initEgyptianMusic();
+  SiteShared.injectViewModeSwitcher('terminal');
+
+  var output = document.getElementById('output');
+  var input = document.getElementById('cmdInput');
+  var cmdHistory = [];
+  var historyPos = -1;
+
+  function println(text, cls) {
+    var div = document.createElement('div');
+    div.className = 'line' + (cls ? ' ' + cls : '');
+    div.innerHTML = text;
+    output.appendChild(div);
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  function printBlock(html) {
+    var div = document.createElement('div');
+    div.className = 'line mono-block';
+    div.innerHTML = html;
+    output.appendChild(div);
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  function blank() { println('&nbsp;'); }
+
+  /* ── content ── */
+  function cmdHelp() {
+    printBlock(
+      'Available commands:<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">about</span>          — who I am<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">experience</span>     — career history\n' +
+      '&nbsp;&nbsp;<span style="color:#baffce">education</span>      — school of hard knocks (and one real one)<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">skills</span>         — skill tree<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">projects</span>       — things I have shipped<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">achievements</span>   — trophy case<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">contact</span>        — how to reach me<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">ls</span> / <span style="color:#baffce">cat &lt;file&gt;</span> — poke around the filesystem<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">music [on|off]</span>— toggle background music<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">viewmode &lt;mode&gt;</span> — default | newspaper | terminal | flipkart | egyptian<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">whoami</span>, <span style="color:#baffce">sudo hire-me</span>, <span style="color:#baffce">matrix</span>, <span style="color:#baffce">date</span>, <span style="color:#baffce">clear</span>'
+    );
+  }
+
+  function cmdAbout() {
+    printBlock(
+      "I'm a Product Engineer at Vobiz AI — the company builds telephony infrastructure for voice AI agents. I work the product side: automation, product scaling, and data analytics. The usual product engineer stuff, just pointed at a voice AI platform.<br><br>" +
+      'Before this: two AI startups, an IEEE region spanning thousands of volunteers, and a machine learning model that reads fingerprints to guess IQ. Based in Bangalore, India. Originally from Kerala.'
+    );
+  }
+
+  function cmdExperience() {
+    printBlock(
+      '<span style="color:#baffce">Vobiz AI</span> — Product Engineer · 2025 — Present · Remote [LIVE]<br>' +
+      '&nbsp;&nbsp;- Vobiz AI builds telephony infrastructure for voice AI agents<br>' +
+      '&nbsp;&nbsp;- Working the product side: automation, product scaling, data analytics<br>' +
+      '&nbsp;&nbsp;- The standard product engineering mix, pointed at a voice AI platform<br><br>' +
+      '<span style="color:#baffce">Cuebo AI</span> — AI Product Engineer · 2025 · Remote<br>' +
+      '&nbsp;&nbsp;- Managed analytics for 4 clients, shaping roadmap decisions<br>' +
+      '&nbsp;&nbsp;- Automated workflows, saving 2.5 hrs/user daily<br>' +
+      '&nbsp;&nbsp;- Built the central data warehouse + analytics/ticketing standards<br>' +
+      '&nbsp;&nbsp;- Led funnel analysis, RCA, and experiment tracking<br><br>' +
+      '<span style="color:#baffce">The Product Folks</span> — Product Management Fellow · Jun 2024 — Present<br>' +
+      '&nbsp;&nbsp;- Ran a national case competition across 25+ Tier-I campuses<br>' +
+      '&nbsp;&nbsp;- Scaled campus ops from 10 to 40+ colleges in 8 months<br><br>' +
+      '<span style="color:#baffce">IEEE Kerala Section</span> — DevOps Intern · Jan 2022 — Dec 2022<br>' +
+      '&nbsp;&nbsp;- Delivered 5 applications to 11,000+ users<br>' +
+      '&nbsp;&nbsp;- Led system design on 2 apps, +25% delivery speed via Agile<br>' +
+      '&nbsp;&nbsp;- Drove 680% user growth + 1560% link-gen growth on min.lc'
+    );
+  }
+
+  function cmdEducation() {
+    printBlock(
+      'GEC Barton Hill (APJ Abdul Kalam Technological University)<br>' +
+      'B.Tech, Information Technology · 2020 — 2024 · CGPA 7.72/10<br>' +
+      'Chair, IEEE Student Branch · Class Representative'
+    );
+  }
+
+  function cmdSkills() {
+    printBlock(
+      '<span style="color:#baffce">Engineering:</span> JavaScript, SQL, Git/VCS, Machine Learning<br>' +
+      '<span style="color:#baffce">Cloud & Tools:</span> Google Cloud, Microsoft Azure, Jira, Zapier, MS Office<br>' +
+      '<span style="color:#baffce">Product & Growth:</span> Product Management, GTM Strategy, Growth & Community Management, Branding<br>' +
+      '<span style="color:#baffce">Domain:</span> Voice AI Infrastructure, Scrum/Agile, Funnel & RCA Analysis'
+    );
+  }
+
+  function cmdProjects() {
+    printBlock(
+      '<span style="color:#baffce">Prep Persona</span> — AI interview prep with custom personas — <a href="https://prep-persona.netlify.app/" target="_blank" rel="noopener">prep-persona.netlify.app</a><br>' +
+      '<span style="color:#baffce">Second Brain App</span> — AI institutional memory — <a href="https://secondbrainapp.netlify.app/" target="_blank" rel="noopener">secondbrainapp.netlify.app</a><br>' +
+      '<span style="color:#baffce">Make My MoU</span> — automated MoU creation & sharing — <a href="https://makemymou.com/" target="_blank" rel="noopener">makemymou.com</a><br>' +
+      '<span style="color:#baffce">Dermatoglyphics Research</span> — fingerprints as an IQ predictor, 92% model accuracy'
+    );
+  }
+
+  function cmdAchievements() {
+    printBlock(
+      '🏅 Outstanding Volunteer — IEEE Asia-Pacific Region (R10)<br>' +
+      "🥇 Darrel Chong Gold Award — IEEE's highest global student honor<br>" +
+      "🌍 First in the World — GEC Barton Hill's IEEE SB won every IEEE MGA global student award<br>" +
+      '📈 200+ Events Coordinated across IEEE global/regional/section units<br>' +
+      '🚀 Campus Division Lead, The Product Folks — scaled 10 → 40+ colleges<br>' +
+      '🎓 Microsoft MLSA — Beta Ambassador, 10+ sessions delivered<br>' +
+      '🏙️ IEEE Smart Cities — Global Committee Member, 2 years<br>' +
+      '💡 Kerala Startup Mission — leadership across tech & entrepreneurship'
+    );
+  }
+
+  function cmdContact() {
+    printBlock(
+      'Email: <a href="mailto:gouthamrajesh02@gmail.com">gouthamrajesh02@gmail.com</a><br>' +
+      'GitHub: <a href="https://github.com/gouthamrajesh" target="_blank" rel="noopener">github.com/gouthamrajesh</a><br>' +
+      'LinkedIn: <a href="https://www.linkedin.com/in/gouthamrajesh/" target="_blank" rel="noopener">linkedin.com/in/gouthamrajesh</a><br>' +
+      'X/Twitter: <a href="https://twitter.com/GouthamRajesh4" target="_blank" rel="noopener">@GouthamRajesh4</a><br><br>' +
+      "Open to conversations about voice AI, product, or your next event that needs 200 more attendees than you planned for."
+    );
+  }
+
+  var files = {
+    'about.txt': cmdAbout,
+    'experience.log': cmdExperience,
+    'education.txt': cmdEducation,
+    'skills.json': cmdSkills,
+    'projects/': cmdProjects,
+    'achievements.txt': cmdAchievements,
+    'contact.vcf': cmdContact
+  };
+
+  function cmdLs() {
+    printBlock(Object.keys(files).join('&nbsp;&nbsp;&nbsp;'));
+  }
+
+  function cmdCat(arg) {
+    var key = arg;
+    if (!files[key] && files[key + '.txt']) key = key + '.txt';
+    if (files[key]) { files[key](); return; }
+    println('cat: ' + arg + ': No such file or directory', 'err');
+  }
+
+  var matrixTimer = null;
+  function cmdMatrix() {
+    if (matrixTimer) { return; }
+    var canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:fixed;inset:0;z-index:9;pointer-events:none;';
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    var cols = Math.floor(canvas.width / 16);
+    var drops = new Array(cols).fill(0);
+    var chars = 'アイウエオカキクケコ0123456789';
+    matrixTimer = setInterval(function () {
+      ctx.fillStyle = 'rgba(6,8,6,0.12)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#3dff6e';
+      ctx.font = '14px monospace';
+      for (var i = 0; i < drops.length; i++) {
+        var text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * 16, drops[i] * 16);
+        if (drops[i] * 16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }, 40);
+    setTimeout(function () {
+      clearInterval(matrixTimer);
+      matrixTimer = null;
+      canvas.remove();
+    }, 6000);
+    println('Wake up, guest... the call is answering itself.', 'dim');
+  }
+
+  function cmdViewmode(arg) {
+    var base = SiteShared.siteBase();
+    var routes = { default: base, newspaper: base + 'newspaper/', terminal: base + 'terminal/', flipkart: base + 'flipkart/', egyptian: base + 'egyptian/' };
+    if (!arg || !routes[arg]) {
+      println('usage: viewmode &lt;default|newspaper|terminal|flipkart|egyptian&gt;', 'warn');
+      return;
+    }
+    println('Redirecting to ' + arg + '...', 'dim');
+    setTimeout(function () { window.location.href = routes[arg]; }, 400);
+  }
+
+  function cmdMusic(arg) {
+    var btn = document.getElementById('egyptMusicToggle');
+    var isPlaying = music.isPlaying();
+    if (arg === 'on' && isPlaying) { println('Music already playing.', 'dim'); return; }
+    if (arg === 'off' && !isPlaying) { println('Music already stopped.', 'dim'); return; }
+    if ((arg === 'on' && !isPlaying) || (arg === 'off' && isPlaying) || !arg) {
+      var nowPlaying = music.toggle();
+      if (btn) {
+        btn.textContent = '🏺 ' + (nowPlaying ? 'Pause ' : 'Play ') + 'Egyptian Vibes';
+        btn.classList.toggle('playing', nowPlaying);
+      }
+      println(nowPlaying ? '♪ Egyptian ambience engaged.' : '♪ Music stopped.', 'dim');
+    }
+  }
+
+  function typeset(cmd, args) {
+    switch (cmd) {
+      case 'help': cmdHelp(); break;
+      case 'about': cmdAbout(); break;
+      case 'experience': case 'work': cmdExperience(); break;
+      case 'education': cmdEducation(); break;
+      case 'skills': cmdSkills(); break;
+      case 'projects': cmdProjects(); break;
+      case 'achievements': case 'trophies': cmdAchievements(); break;
+      case 'contact': case 'social': cmdContact(); break;
+      case 'ls': case 'dir': cmdLs(); break;
+      case 'cat': cmdCat(args.join(' ')); break;
+      case 'whoami': println("You're a guest. Type 'about' to learn who I am instead.", 'dim'); break;
+      case 'sudo':
+        if (args.join(' ') === 'hire-me') {
+          println('Permission granted. Opening mail client...', 'hl');
+          setTimeout(function () { window.location.href = 'mailto:gouthamrajesh02@gmail.com?subject=Let%27s%20talk'; }, 500);
+        } else {
+          println('sudo: nice try. This terminal has no root, only résumés.', 'warn');
+        }
+        break;
+      case 'matrix': cmdMatrix(); break;
+      case 'music': cmdMusic(args[0]); break;
+      case 'viewmode': case 'goto': cmdViewmode(args[0]); break;
+      case 'date': println(new Date().toString(), 'dim'); break;
+      case 'clear': case 'cls': output.innerHTML = ''; break;
+      case 'exit': case 'logout': case 'quit': println('There is no exit. Only more scrolling. (Try closing the tab.)', 'warn'); break;
+      case '': break;
+      default: println((cmd || '') + (args.length ? ' ' + args.join(' ') : '') + ': command not found. Type \'help\' for a list.', 'err');
+    }
+  }
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      var raw = input.value;
+      var trimmed = raw.trim();
+      println('<span class="prompt-label">guest@goutham:~$</span> ' + (raw.replace(/</g,'&lt;')));
+      if (trimmed) { cmdHistory.push(trimmed); }
+      historyPos = cmdHistory.length;
+      var parts = trimmed.split(/\s+/).filter(Boolean);
+      var cmd = (parts.shift() || '').toLowerCase();
+      typeset(cmd, parts);
+      input.value = '';
+    } else if (e.key === 'ArrowUp') {
+      if (historyPos > 0) { historyPos--; input.value = cmdHistory[historyPos]; setTimeout(function(){input.selectionStart=input.selectionEnd=input.value.length;},0); }
+      e.preventDefault();
+    } else if (e.key === 'ArrowDown') {
+      if (historyPos < cmdHistory.length - 1) { historyPos++; input.value = cmdHistory[historyPos]; }
+      else { historyPos = cmdHistory.length; input.value = ''; }
+      e.preventDefault();
+    } else if (e.key === 'Tab') {
+      e.preventDefault();
+      var cmds = ['help','about','experience','education','skills','projects','achievements','contact','ls','cat','whoami','sudo','matrix','music','viewmode','date','clear','exit'];
+      var partial = input.value.toLowerCase();
+      var match = cmds.find(function (c) { return c.indexOf(partial) === 0 && partial.length > 0; });
+      if (match) input.value = match;
+    }
+  });
+
+  document.addEventListener('click', function () { input.focus(); });
+
+  /* ── boot sequence ── */
+  var boot = [
+    ['GOUTHAM OS v2.5.1', 'hl'],
+    ['Copyright (c) 2001-2026 Goutham Rajesh. All rights reserved.', 'dim'],
+    ['', ''],
+    ['Initializing personality module...           [ OK ]', 'dim'],
+    ['Loading career history...                    [ OK ]', 'dim'],
+    ['Mounting /dev/vobiz-ai...                     [ OK ]', 'dim'],
+    ['Establishing voice channel...                 [ OK ]', 'dim'],
+    ['Calibrating IEEE event throughput...          [ OK ]', 'dim'],
+    ['', ''],
+    ["Welcome. This terminal is real — type <span style='color:#baffce'>help</span> to see available commands.", 'hl'],
+  ];
+  var i = 0;
+  input.disabled = true;
+  function bootNext() {
+    if (i >= boot.length) { input.disabled = false; input.focus(); return; }
+    println(boot[i][0], boot[i][1]);
+    i++;
+    setTimeout(bootNext, i < 3 ? 220 : 90);
+  }
+  bootNext();
+</script>
+</body>
+</html>

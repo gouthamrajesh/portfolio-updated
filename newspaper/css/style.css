@@ -1,0 +1,591 @@
+/* ============================================================
+   THE CHRONICLE OF GOUTHAM RAJESH
+   1900s Newspaper Portfolio Stylesheet
+   ============================================================ */
+
+/* ---------- Google Fonts (antique press typography) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap');
+
+/* ---------- CSS Variables ---------- */
+:root {
+  --paper: #f1e8d3;          /* aged newsprint */
+  --paper-shadow: #d9cba8;
+  --ink: #1c1207;            /* deep brown-black ink */
+  --ink-soft: #3a2a16;
+  --rule: #2a1a08;
+  --accent: #6b1a0e;         /* deep oxblood red */
+  --accent-soft: #8a2415;
+  --stain: rgba(120, 80, 30, 0.18);
+}
+
+/* ---------- Global reset ---------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Old Standard TT', 'Playfair Display', Georgia, serif;
+  background-color: var(--paper);
+  background-image:
+    /* foxing / age stains */
+    radial-gradient(ellipse at 15% 20%, var(--stain) 0%, transparent 35%),
+    radial-gradient(ellipse at 85% 60%, rgba(90, 50, 10, 0.12) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 90%, var(--stain) 0%, transparent 30%),
+    /* paper fiber texture */
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 2px,
+      rgba(0, 0, 0, 0.012) 2px 3px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 2px,
+      rgba(0, 0, 0, 0.012) 2px 3px
+    );
+  color: var(--ink);
+  line-height: 1.55;
+  padding: 24px 12px 60px;
+}
+
+/* ---------- The paper sheet ---------- */
+.newspaper {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse at 10% 15%, rgba(120, 80, 30, 0.10) 0%, transparent 25%),
+    radial-gradient(ellipse at 90% 80%, rgba(90, 50, 10, 0.08) 0%, transparent 30%);
+  border: 2px solid var(--rule);
+  box-shadow:
+    0 0 0 1px var(--paper) inset,
+    0 10px 40px rgba(0, 0, 0, 0.45),
+    0 2px 0 var(--paper-shadow);
+  padding: 0;
+  position: relative;
+}
+
+/* faint torn-edge / ink smudge accents on the sheet */
+.newspaper::before,
+.newspaper::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+.newspaper::before {
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  box-shadow:
+    inset 0 0 80px rgba(90, 50, 10, 0.25),
+    inset 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.masthead {
+  text-align: center;
+  padding: 30px 24px 14px;
+  border-bottom: 4px double var(--rule);
+  position: relative;
+}
+
+.masthead-rule-top {
+  border-top: 6px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 18px;
+}
+
+.dateline {
+  font-family: 'IM Fell English', 'Old Standard TT', serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0 6px 14px;
+  color: var(--ink-soft);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dateline span { white-space: nowrap; }
+.dateline .center { font-style: italic; letter-spacing: 0.1em; }
+
+.masthead h1 {
+  font-family: 'UnifrakturCook', 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 7vw, 4.6rem);
+  line-height: 0.95;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  text-shadow: 1px 1px 0 var(--paper-shadow);
+}
+
+.masthead .subtitle {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 8px;
+  color: var(--ink-soft);
+}
+
+.masthead-deck {
+  border-top: 1px solid var(--rule);
+  border-bottom: 3px double var(--rule);
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+}
+.masthead-deck > div {
+  padding: 6px 10px;
+  border-right: 1px solid var(--rule);
+  flex: 1;
+  text-align: center;
+}
+.masthead-deck > div:last-child { border-right: none; }
+
+/* ============================================================
+   FRONT-PAGE HEADLINE BAND
+   ============================================================ */
+.front-banner {
+  text-align: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.front-banner .kicker {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
+.front-banner h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 6px 0 4px;
+  line-height: 1.05;
+}
+
+.front-banner .lede {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: var(--ink-soft);
+  max-width: 720px;
+  margin: 4px auto 0;
+}
+
+/* ============================================================
+   COLUMN LAYOUT
+   ============================================================ */
+.body-grid {
+  padding: 22px 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+@media (min-width: 720px) {
+  .body-grid {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 28px;
+  }
+}
+
+/* multi-column newspaper flow for long sections */
+.columns {
+  column-count: 1;
+  column-gap: 26px;
+  column-rule: 1px solid var(--ink-soft);
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+@media (min-width: 720px) {
+  .columns { column-count: 2; }
+}
+@media (min-width: 980px) {
+  .columns-3 { column-count: 3; }
+}
+
+/* ============================================================
+   SECTION HEADERS ("article" headers)
+   ============================================================ */
+.section-head {
+  border-top: 3px double var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 8px 0 6px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.section-head .category {
+  font-family: 'IM Fell English', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.65rem;
+  color: var(--accent);
+}
+
+.section-head h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 2px 0;
+  line-height: 1.1;
+}
+
+.section-head .deck {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* full-width article wrapper */
+.article {
+  grid-column: 1 / -1;
+  margin-bottom: 8px;
+}
+
+/* ============================================================
+   ARTICLE BODY TYPOGRAPHY
+   ============================================================ */
+.article-body {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.article-body p {
+  margin-bottom: 10px;
+  text-indent: 1.4em;
+}
+.article-body p:first-of-type { text-indent: 0; }
+
+/* drop cap */
+.drop-cap::first-letter {
+  font-family: 'UnifrakturCook', 'Playfair Display', serif;
+  float: left;
+  font-size: 3.6rem;
+  line-height: 0.8;
+  padding: 6px 8px 0 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ============================================================
+   ENTRY CARDS (experience / projects entries)
+   ============================================================ */
+.entry {
+  break-inside: avoid;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--ink-soft);
+}
+.entry:last-child { border-bottom: none; }
+
+.entry-head {
+  margin-bottom: 6px;
+}
+
+.entry-head .entry-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  font-size: 1.18rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.entry-head .entry-meta {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.entry ul {
+  list-style: none;
+  margin-top: 6px;
+  padding-left: 0;
+}
+
+.entry ul li {
+  position: relative;
+  padding-left: 1.3em;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.entry ul li::before {
+  content: '\00a7'; /* section sign, very newspaper-y */
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.entry-link {
+  display: inline-block;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-soft);
+  margin-top: 4px;
+}
+.entry-link:hover { color: var(--ink); }
+
+/* ============================================================
+   PULL QUOTE / CALLOUT BOX
+   ============================================================ */
+.pullquote {
+  break-inside: avoid;
+  margin: 18px 0;
+  padding: 14px 20px;
+  border-top: 4px double var(--rule);
+  border-bottom: 4px double var(--rule);
+  text-align: center;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.pullquote .qmark {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  color: var(--accent);
+  line-height: 0;
+  vertical-align: -0.4em;
+  margin: 0 4px;
+}
+.pullquote cite {
+  display: block;
+  font-style: normal;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 8px;
+}
+
+/* ============================================================
+   CLASSIFIEDS / SKILLS BOX
+   ============================================================ */
+.classifieds {
+  break-inside: avoid;
+  border: 2px solid var(--rule);
+  padding: 0;
+  margin: 6px 0 14px;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.classifieds-header {
+  background-color: var(--ink);
+  color: var(--paper);
+  text-align: center;
+  padding: 5px 8px;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.85rem;
+}
+
+.classifieds-body {
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.classified-row {
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--ink-soft);
+}
+.classified-row:last-child { border-bottom: none; }
+
+.classified-row .label {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* skill chips as old-style type */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 8px;
+}
+.chip {
+  font-family: 'Special Elite', 'Courier New', monospace;
+  font-size: 0.78rem;
+  background: var(--paper-shadow);
+  border: 1px solid var(--ink-soft);
+  padding: 2px 8px;
+  color: var(--ink);
+}
+
+/* ============================================================
+   INDEX / TOC BOX
+   ============================================================ */
+.index-box {
+  border: 2px solid var(--rule);
+  padding: 14px 16px;
+  background-color: rgba(0, 0, 0, 0.025);
+  margin-bottom: 16px;
+}
+.index-box h4 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+}
+.index-box ol {
+  list-style: none;
+  font-size: 0.85rem;
+  font-family: 'IM Fell English', serif;
+}
+.index-box ol li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dotted var(--ink-soft);
+  padding: 3px 0;
+}
+.index-box ol li a {
+  color: var(--ink);
+  text-decoration: none;
+}
+.index-box ol li a:hover { color: var(--accent); }
+.index-box ol li .pg {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ============================================================
+   EDITORIAL / CONTACT FOOTER
+   ============================================================ */
+.editorial {
+  grid-column: 1 / -1;
+  border-top: 4px double var(--rule);
+  margin-top: 10px;
+  padding: 22px 0 0;
+  text-align: center;
+}
+
+.editorial .section-head { border: none; padding-top: 0; }
+.editorial .section-head h3 { font-size: 1.4rem; }
+
+.contact-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 22px;
+  margin-top: 14px;
+  font-family: 'IM Fell English', serif;
+  font-size: 0.85rem;
+}
+
+.contact-block a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--ink-soft);
+  padding-bottom: 1px;
+  transition: color 0.2s;
+}
+.contact-block a:hover { color: var(--accent); border-color: var(--accent); }
+
+.contact-block .pipe { color: var(--ink-soft); }
+
+/* ============================================================
+   FOOTER (colophon)
+   ============================================================ */
+.colophon {
+  margin-top: 26px;
+  border-top: 6px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 24px;
+  text-align: center;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.05em;
+}
+.colophon .ornament {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin: 0 8px;
+}
+
+/* ============================================================
+   BACK TO TOP
+   ============================================================ */
+.back-to-top {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--paper-shadow);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.back-to-top:hover { transform: translateY(-3px); }
+
+/* ---------- Print ---------- */
+@media print {
+  body { background: #fff; padding: 0; }
+  .newspaper { box-shadow: none; max-width: none; }
+  .back-to-top { display: none; }
+}
