@@ -71,7 +71,7 @@
 
 <script src="../shared/site.js"></script>
 <script>
-  var music = SiteShared.initEgyptianMusic();
+  var music = SiteShared.initMusic({ label: 'Vice City Vibes', icon: '🌆' });
   SiteShared.injectViewModeSwitcher('terminal');
 
   var output = document.getElementById('output');
@@ -108,7 +108,7 @@
       '&nbsp;&nbsp;<span style="color:#baffce">contact</span>        — how to reach me<br>' +
       '&nbsp;&nbsp;<span style="color:#baffce">ls</span> / <span style="color:#baffce">cat &lt;file&gt;</span> — poke around the filesystem<br>' +
       '&nbsp;&nbsp;<span style="color:#baffce">music [on|off]</span>— toggle background music<br>' +
-      '&nbsp;&nbsp;<span style="color:#baffce">viewmode &lt;mode&gt;</span> — default | newspaper | terminal | flipkart | egyptian<br>' +
+      '&nbsp;&nbsp;<span style="color:#baffce">viewmode &lt;mode&gt;</span> — default | newspaper | terminal | flipkart<br>' +
       '&nbsp;&nbsp;<span style="color:#baffce">whoami</span>, <span style="color:#baffce">sudo hire-me</span>, <span style="color:#baffce">matrix</span>, <span style="color:#baffce">date</span>, <span style="color:#baffce">clear</span>'
     );
   }
@@ -245,9 +245,9 @@
 
   function cmdViewmode(arg) {
     var base = SiteShared.siteBase();
-    var routes = { default: base, newspaper: base + 'newspaper/', terminal: base + 'terminal/', flipkart: base + 'flipkart/', egyptian: base + 'egyptian/' };
+    var routes = { default: base, newspaper: base + 'newspaper/', terminal: base + 'terminal/', flipkart: base + 'flipkart/' };
     if (!arg || !routes[arg]) {
-      println('usage: viewmode &lt;default|newspaper|terminal|flipkart|egyptian&gt;', 'warn');
+      println('usage: viewmode &lt;default|newspaper|terminal|flipkart&gt;', 'warn');
       return;
     }
     println('Redirecting to ' + arg + '...', 'dim');
@@ -262,10 +262,10 @@
     if ((arg === 'on' && !isPlaying) || (arg === 'off' && isPlaying) || !arg) {
       var nowPlaying = music.toggle();
       if (btn) {
-        btn.textContent = '🏺 ' + (nowPlaying ? 'Pause ' : 'Play ') + 'Egyptian Vibes';
+        btn.textContent = '🌆 ' + (nowPlaying ? 'Pause ' : 'Play ') + 'Vice City Vibes';
         btn.classList.toggle('playing', nowPlaying);
       }
-      println(nowPlaying ? '♪ Egyptian ambience engaged.' : '♪ Music stopped.', 'dim');
+      println(nowPlaying ? '♪ Vice City ambience engaged.' : '♪ Music stopped.', 'dim');
     }
   }
 
