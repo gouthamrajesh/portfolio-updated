@@ -21,11 +21,13 @@
 /* ---------- Global reset ---------- */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
 
 body {
   font-family: 'Old Standard TT', 'Playfair Display', Georgia, serif;
   background-color: var(--paper);
+  overflow-x: hidden;
+  width: 100%;
   background-image:
     /* foxing / age stains */
     radial-gradient(ellipse at 15% 20%, var(--stain) 0%, transparent 35%),
@@ -148,6 +150,7 @@ body {
   padding: 6px 10px;
   border-right: 1px solid var(--rule);
   flex: 1;
+  min-width: 0;
   text-align: center;
 }
 .masthead-deck > div:last-child { border-right: none; }
