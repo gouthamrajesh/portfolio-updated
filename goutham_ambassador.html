@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Goutham Rajesh — Devin Community Ambassador</title>
+<title>Goutham Rajesh — Community Manager</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,12 +42,19 @@
     font-weight: 700; font-size: 15px; letter-spacing: 0.04em;
     text-transform: uppercase; color: var(--ink);
   }
+  .nav-right { display: flex; align-items: center; gap: 28px; }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a {
     font-size: 13px; color: var(--mid); text-decoration: none;
     letter-spacing: 0.03em; transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--ink); }
+  .btn-back {
+    font-size: 12px; font-weight: 500; color: var(--blue); text-decoration: none;
+    border: 1px solid var(--blue); padding: 8px 16px; border-radius: 100px;
+    white-space: nowrap; transition: background 0.2s, color 0.2s;
+  }
+  .btn-back:hover { background: var(--blue); color: white; }
 
   /* ── SECTIONS ── */
   section { padding: 120px 48px; max-width: 1100px; margin: 0 auto; }
@@ -56,7 +63,7 @@
   #hero {
     min-height: 100vh;
     display: flex; flex-direction: column; justify-content: center;
-    padding-top: 140px; padding-bottom: 80px;
+    padding: 140px 48px 80px;
     max-width: 1100px; margin: 0 auto;
   }
   .hero-eyebrow {
@@ -70,6 +77,7 @@
     font-size: clamp(52px, 8vw, 100px);
     font-weight: 800; line-height: 0.95;
     letter-spacing: -0.03em; color: var(--ink);
+    overflow-wrap: break-word;
     opacity: 0; animation: fadeUp 0.7s 0.25s forwards;
   }
   .hero-name span {
@@ -162,7 +170,16 @@
     font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
     text-transform: uppercase; color: var(--ink);
     border-bottom: 2px solid var(--blue); padding-bottom: 2px;
+    text-decoration: none;
   }
+  a.event-scale { cursor: pointer; }
+  a.event-scale:hover { color: var(--blue); }
+
+  /* ── SECTION NOTE ── */
+  .section-note {
+    font-size: 14px; color: var(--mid); margin-top: -16px; margin-bottom: 32px; max-width: 640px;
+  }
+  .section-note a { color: var(--blue); text-decoration: none; border-bottom: 1px solid var(--blue); }
 
   /* ── Q2 STATEMENT ── */
   .statement-bar {
@@ -239,6 +256,7 @@
     .nav-links { display: none; }
     section { padding: 80px 20px; }
     #hero { padding: 120px 20px 60px; }
+    .hero-name { font-size: clamp(30px, 9vw, 52px); white-space: nowrap; }
     footer { padding: 32px 20px; }
     .community-item { grid-template-columns: 1fr; gap: 8px; }
     .statement-bar { padding: 28px 24px; }
@@ -249,38 +267,40 @@
 
 <nav>
   <div class="nav-name">Goutham Rajesh</div>
-  <div class="nav-links">
-    <a href="#q1">About</a>
-    <a href="#q2">Events</a>
-    <a href="#q3">Communities</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#q1">About</a>
+      <a href="#q2">Events</a>
+      <a href="#q3">Communities</a>
+    </div>
+    <a href="index.html" class="btn-back">&larr; Back to Portfolio</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<div style="padding: 0 48px;">
-  <section id="hero">
-    <p class="hero-eyebrow">Devin Community Ambassador — Application</p>
-    <h1 class="hero-name">
-      Goutham<br>
-      <span>Rajesh</span>
-    </h1>
-    <p class="hero-sub">
-      Product Engineer building the future of voice AI. Global IEEE leader. 2× founder. Someone who has spent a decade making things happen — at every scale.
-    </p>
-    <div class="hero-tags">
-      <span class="tag blue">Product Engineer · Vobiz AI</span>
-      <span class="tag">IEEE Outstanding Volunteer · APAC Region</span>
-      <span class="tag">2× Founder</span>
-      <span class="tag">Bangalore, India</span>
-    </div>
-  </section>
-</div>
+<section id="hero">
+  <p class="hero-eyebrow">Community Manager — Leadership Record</p>
+  <h1 class="hero-name">
+    Goutham<br>
+    <span>Rajesh</span>
+  </h1>
+  <p class="hero-sub">
+    Product Engineer building the future of voice AI, and a product &amp; community leader across parts of Kerala and Bangalore. Global IEEE leader. 2× founder. Someone who has spent a decade making things happen — at every scale.
+  </p>
+  <div class="hero-tags">
+    <span class="tag blue">Product Engineer · Vobiz AI</span>
+    <span class="tag blue">Product &amp; Community Leader</span>
+    <span class="tag">IEEE Outstanding Volunteer · APAC Region</span>
+    <span class="tag">2× Founder</span>
+    <span class="tag">Kerala &amp; Bangalore, India</span>
+  </div>
+</section>
 
 <hr class="divider">
 
 <!-- Q1 -->
 <section id="q1">
-  <p class="q-label reveal">Q1 — Who I Am</p>
+  <p class="q-label reveal">01 — Who I Am</p>
   <h2 class="section-heading reveal">Builder. Leader. Connector.</h2>
   <div class="body reveal">
     <p>
@@ -288,7 +308,7 @@
     </p>
     <br>
     <p>
-      Beyond the product work, I'm a <strong>global IEEE leader</strong> — recognised as an <strong>Outstanding Volunteer by the IEEE Asia-Pacific Region (R10)</strong> for my contributions across the IEEE ecosystem. I led the student branch at GEC Barton Hill to become the <strong>first and only university in the world to win every award offered by the IEEE MGA Global Students Department</strong> — a record that stands to this day. I currently serve in an industry-focused leadership capacity at IEEE Kerala Section, driving communities around innovation and entrepreneurship.
+      Beyond the product work, I'm a <strong>global IEEE leader</strong> — recognised as an <strong>Outstanding Volunteer by the IEEE Asia-Pacific Region (R10)</strong> for my contributions across the IEEE ecosystem. I led the student branch at GEC Barton Hill to become the <strong>first and only university in the world to win every award offered by the IEEE MGA Global Students Department</strong> — a record that stands to this day. I currently serve in an industry-focused leadership capacity at IEEE Kerala Section, driving communities around innovation and entrepreneurship. Across parts of Kerala and Bangalore, I've built and led product and community initiatives that connect students, founders, and industry.
     </p>
     <br>
     <p>
@@ -301,10 +321,18 @@
 
 <!-- Q2 -->
 <section id="q2">
-  <p class="q-label reveal">Q2 — Events</p>
+  <p class="q-label reveal">02 — Events</p>
   <h2 class="section-heading reveal">On every stage that mattered.</h2>
+  <p class="section-note reveal">Most of the events below are IEEE events that predate easily searchable public records. You can verify my roles and positions via my <a href="https://ieee-collabratec.ieee.org/app/p/gouthamrajesh?slv=true" target="_blank" rel="noopener">IEEE Collabratec profile</a>.</p>
 
   <div class="events-grid reveal">
+
+    <div class="event-card">
+      <div class="event-year">2025 · Bangalore</div>
+      <div class="event-title">The Product Unconference 2025</div>
+      <div class="event-desc">Partnered with The Product Folks on this unconference-format gathering for product professionals — bringing structured community programming to an unconventional format.</div>
+      <a class="event-scale" href="https://www.theproductfolks.com/product-unconference-2025" target="_blank" rel="noopener">View Event →</a>
+    </div>
 
     <div class="event-card">
       <div class="event-year">2023 · Malaysia</div>
@@ -374,7 +402,7 @@
 
 <!-- Q3 -->
 <section id="q3">
-  <p class="q-label reveal">Q3 — Communities</p>
+  <p class="q-label reveal">03 — Communities</p>
   <h2 class="section-heading reveal">Where I show up and what I lead.</h2>
 
   <div class="community-list">
@@ -443,9 +471,10 @@
 </section>
 
 <footer>
-  <div class="footer-name">Goutham Rajesh · Devin Ambassador Application</div>
+  <div class="footer-name">Goutham Rajesh · Community Manager</div>
   <div class="footer-contact">
     <a href="mailto:gouthamrajesh@ieee.org">gouthamrajesh@ieee.org</a> &nbsp;·&nbsp; Bangalore, India
+    &nbsp;·&nbsp; <a href="index.html">Back to Portfolio</a>
   </div>
 </footer>
 
