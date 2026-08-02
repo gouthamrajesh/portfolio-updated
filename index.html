@@ -383,32 +383,48 @@
   .trophy h4 { font-family: var(--display); font-size: 15px; margin-bottom: 8px; }
   .trophy p { font-size: 13px; color: var(--mid); }
 
-  /* ── GAME ── */
+  /* ── GAME: DAILY SUDOKU ── */
   .game-wrap { background: var(--card); border: 1px solid var(--rule); border-radius: 18px; padding: 24px; }
   .game-hud {
     display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 18px;
     font-family: var(--mono); font-size: 12px; color: var(--mid); text-transform: uppercase; letter-spacing: 0.05em;
   }
   .game-hud strong { color: var(--ink); font-size: 15px; margin-left: 6px; }
-  .game-hud .btn-primary { margin-left: auto; }
-  .game-stage {
-    position: relative; height: 380px; border-radius: 14px; overflow: hidden;
-    border: 1px solid var(--rule);
-    background: radial-gradient(circle at 50% 100%, rgba(57,255,136,0.07), transparent 60%), var(--bg-alt);
+  .sudoku-stage { position: relative; }
+  .sudoku-wrap { display: flex; gap: 28px; align-items: flex-start; justify-content: center; flex-wrap: wrap; }
+  .sudoku-board {
+    display: grid; grid-template-columns: repeat(9, 1fr); grid-template-rows: repeat(9, 1fr);
+    width: min(420px, 100%); aspect-ratio: 1; background: var(--rule); gap: 1px;
+    border: 2px solid var(--rule); border-radius: 8px; overflow: hidden; flex-shrink: 0;
   }
-  .game-floor {
-    position: absolute; bottom: 0; left: 0; right: 0; border-top: 2px dashed var(--rule);
-    text-align: center; padding-top: 6px; font-family: var(--mono); font-size: 10px;
-    letter-spacing: 0.1em; color: var(--mid);
+  .sudoku-cell {
+    background: var(--bg-alt); display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: clamp(14px, 3.6vw, 20px); color: var(--accent2);
+    cursor: pointer; user-select: none;
   }
-  .falling-call {
-    position: absolute; font-size: 30px; cursor: pointer; user-select: none;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
-    transition: transform .18s ease, opacity .18s ease;
+  .sudoku-cell.given { color: var(--ink); font-weight: 700; cursor: default; background: var(--card); }
+  .sudoku-cell.peer { background: rgba(255,255,255,0.035); }
+  .sudoku-cell.selected { background: var(--accent-soft); }
+  .sudoku-cell.conflict { color: #ff6b6b; }
+  .sudoku-cell:nth-child(9n+3) { border-right: 2px solid var(--ink); }
+  .sudoku-cell:nth-child(9n+6) { border-right: 2px solid var(--ink); }
+  .sudoku-cell:nth-child(n+19):nth-child(-n+27) { border-bottom: 2px solid var(--ink); }
+  .sudoku-cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--ink); }
+  .number-pad {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; width: min(260px, 100%); flex-shrink: 0;
   }
-  .falling-call.caught { transform: scale(1.8); opacity: 0; }
+  .number-pad button {
+    aspect-ratio: 1; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg-alt);
+    color: var(--ink); font-family: var(--mono); font-size: 16px; cursor: pointer;
+    transition: border-color .15s, color .15s;
+  }
+  .number-pad button:hover { border-color: var(--accent); color: var(--accent); }
+  .number-pad button.erase { color: var(--mid); font-size: 14px; }
+  .sudoku-stats {
+    margin-top: 20px; text-align: center; font-family: var(--mono); font-size: 12px; color: var(--mid);
+  }
   .game-overlay {
-    position: absolute; inset: 0; background: rgba(10,11,16,0.94);
+    position: absolute; inset: 0; background: rgba(10,11,16,0.94); border-radius: 14px;
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
     opacity: 0; pointer-events: none; transition: opacity .3s ease; text-align: center; padding: 20px;
   }
@@ -782,23 +798,38 @@
 
   <section id="play">
     <p class="q-label reveal">06 / Play</p>
-    <h2 class="section-heading reveal">Catch the call</h2>
-    <p class="section-sub reveal">Think you can handle Vobiz AI's call volume? Click the calls before they hit the ground.</p>
+    <h2 class="section-heading reveal">Daily Sudoku</h2>
+    <p class="section-sub reveal">One puzzle a day, same for everyone. No pressure — just you, nine numbers, and mild existential dread.</p>
     <div class="game-wrap reveal">
       <div class="game-hud">
-        <div>Score <strong id="gameScore">0</strong></div>
-        <div>Time <strong id="gameTime">20</strong>s</div>
-        <div>Best <strong id="gameBest">0</strong></div>
-        <button id="gameStart" class="btn-primary small">▶ Start</button>
+        <div>Puzzle <strong id="sudokuNumber">#0</strong></div>
+        <div>Time <strong id="sudokuTimer">00:00</strong></div>
+        <div>Mistakes <strong id="sudokuMistakes">0</strong></div>
       </div>
-      <div class="game-stage" id="gameStage">
-        <div class="game-floor">Dropped calls</div>
+      <div class="sudoku-stage">
+        <div class="sudoku-wrap">
+          <div class="sudoku-board" id="sudokuBoard"></div>
+          <div class="number-pad" id="numberPad">
+            <button type="button" data-num="1">1</button>
+            <button type="button" data-num="2">2</button>
+            <button type="button" data-num="3">3</button>
+            <button type="button" data-num="4">4</button>
+            <button type="button" data-num="5">5</button>
+            <button type="button" data-num="6">6</button>
+            <button type="button" data-num="7">7</button>
+            <button type="button" data-num="8">8</button>
+            <button type="button" data-num="9">9</button>
+            <button type="button" data-num="0" class="erase">⌫</button>
+          </div>
+        </div>
         <div class="game-overlay" id="gameOverlay">
-          <p>Game Over</p>
-          <p class="game-final">Score: <strong id="gameFinalScore">0</strong></p>
+          <p>Solved! 🎉</p>
+          <p class="game-final">Time: <strong id="gameFinalTime">00:00</strong></p>
           <p class="game-msg" id="gameOverlayMsg"></p>
+          <button type="button" id="shareBtn" class="btn-primary small">Share Result</button>
         </div>
       </div>
+      <p class="sudoku-stats" id="sudokuStats"></p>
     </div>
   </section>
 
@@ -826,7 +857,12 @@
   Fun fact: Goutham has coordinated 200+ IEEE events and (allegedly) never once let a call drop.
 </div>
 
+<div class="toast" id="sudokuToast">
+  <strong>📋 Copied to clipboard</strong>
+</div>
+
 <script src="shared/site.js"></script>
+<script src="shared/sudoku.js"></script>
 <script>
   SiteShared.injectViewModeSwitcher('default');
   SiteShared.initMusic({ label: 'Vice City Vibes', icon: '🌆' });
@@ -1041,85 +1077,177 @@
     });
   })();
 
-  /* ── MINI GAME: CATCH THE CALL ── */
+  /* ── DAILY SUDOKU ── */
   (function () {
-    const stage = document.getElementById('gameStage');
-    const scoreEl = document.getElementById('gameScore');
-    const timeEl = document.getElementById('gameTime');
-    const bestEl = document.getElementById('gameBest');
-    const startBtn = document.getElementById('gameStart');
+    const puzzleData = Sudoku.getDailyPuzzle();
+    const dateKey = puzzleData.dateKey;
+    const solution = puzzleData.solution;
+    const puzzle = puzzleData.puzzle;
+
+    const board = document.getElementById('sudokuBoard');
+    const numberPad = document.getElementById('numberPad');
+    const numberEl = document.getElementById('sudokuNumber');
+    const timerEl = document.getElementById('sudokuTimer');
+    const mistakesEl = document.getElementById('sudokuMistakes');
     const overlay = document.getElementById('gameOverlay');
     const overlayMsg = document.getElementById('gameOverlayMsg');
-    const finalScoreEl = document.getElementById('gameFinalScore');
+    const finalTimeEl = document.getElementById('gameFinalTime');
+    const shareBtn = document.getElementById('shareBtn');
+    const statsEl = document.getElementById('sudokuStats');
+    const sudokuToast = document.getElementById('sudokuToast');
 
-    const DURATION = 20;
-    const ICONS = ['📞', '☎️', '📲'];
-    let score = 0, timeLeft = DURATION, spawnInt = null, tickInt = null, running = false;
+    numberEl.textContent = '#' + puzzleData.number;
 
-    function bestScore() { return Number(localStorage.getItem('gr_catchcall_best') || 0); }
-    bestEl.textContent = bestScore();
+    let progress = Sudoku.loadProgress(dateKey) || {
+      grid: puzzle.map((row) => row.slice()),
+      elapsed: 0,
+      mistakes: 0,
+      solved: false
+    };
 
-    function spawnCall() {
-      const el = document.createElement('div');
-      el.className = 'falling-call';
-      el.textContent = ICONS[Math.floor(Math.random() * ICONS.length)];
-      const x = Math.random() * Math.max(1, stage.clientWidth - 40);
-      el.style.left = x + 'px';
-      el.style.top = '-40px';
-      stage.appendChild(el);
-      const fallTime = 2.3 + Math.random() * 1.3;
-      requestAnimationFrame(() => {
-        el.style.transition = `top ${fallTime}s linear`;
-        el.style.top = (stage.clientHeight - 40) + 'px';
-      });
-      let caught = false;
-      el.addEventListener('pointerdown', () => {
-        if (caught || !running) return;
-        caught = true;
-        score++; scoreEl.textContent = score;
-        el.classList.add('caught');
-        setTimeout(() => el.remove(), 180);
-      });
-      el.addEventListener('transitionend', (e) => {
-        if (e.propertyName !== 'top') return;
-        if (!caught) el.remove();
+    let selected = null;
+    let timerInterval = null;
+
+    function persist() { Sudoku.saveProgress(dateKey, progress); }
+
+    function formatTime(s) {
+      const m = Math.floor(s / 60), sec = s % 60;
+      return String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+    }
+
+    function renderStats() {
+      const personal = Sudoku.getPersonalPlayed();
+      statsEl.textContent = "You've solved " + personal + (personal === 1 ? ' puzzle.' : ' puzzles.');
+    }
+    renderStats();
+
+    function isGiven(r, c) { return puzzle[r][c] !== 0; }
+
+    function renderBoard() {
+      board.innerHTML = '';
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          const cell = document.createElement('div');
+          cell.className = 'sudoku-cell';
+          const val = progress.grid[r][c];
+          cell.textContent = val ? val : '';
+          cell.dataset.r = r;
+          cell.dataset.c = c;
+          if (isGiven(r, c)) {
+            cell.classList.add('given');
+          } else if (val && val !== solution[r][c]) {
+            cell.classList.add('conflict');
+          }
+          cell.addEventListener('click', function () {
+            if (progress.solved) return;
+            const rr = Number(this.dataset.r), cc = Number(this.dataset.c);
+            if (isGiven(rr, cc)) return;
+            selected = [rr, cc];
+            highlightSelection();
+          });
+          board.appendChild(cell);
+        }
+      }
+      highlightSelection();
+    }
+
+    function highlightSelection() {
+      const cells = board.children;
+      for (let i = 0; i < cells.length; i++) cells[i].classList.remove('selected', 'peer');
+      if (!selected) return;
+      const [sr, sc] = selected;
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          const el = cells[r * 9 + c];
+          if (r === sr && c === sc) el.classList.add('selected');
+          else if (r === sr || c === sc || (Math.floor(r / 3) === Math.floor(sr / 3) && Math.floor(c / 3) === Math.floor(sc / 3))) {
+            el.classList.add('peer');
+          }
+        }
+      }
+    }
+
+    function isComplete() {
+      for (let r = 0; r < 9; r++) {
+        for (let c = 0; c < 9; c++) {
+          if (progress.grid[r][c] !== solution[r][c]) return false;
+        }
+      }
+      return true;
+    }
+
+    function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
+
+    function checkWin() {
+      if (progress.solved || !isComplete()) return;
+      progress.solved = true;
+      persist();
+      stopTimer();
+      const personal = Sudoku.incrementPersonalPlayed();
+      finalTimeEl.textContent = formatTime(progress.elapsed);
+      overlayMsg.textContent = progress.mistakes === 0
+        ? 'Flawless. Not a single mistake.'
+        : progress.mistakes + ' mistake' + (progress.mistakes === 1 ? '' : 's') + ' along the way — still counts.';
+      overlay.classList.add('show');
+      statsEl.textContent = "You've solved " + personal + (personal === 1 ? ' puzzle.' : ' puzzles.') + ' Fetching global count…';
+      Sudoku.hitGlobalCounter().then((count) => {
+        statsEl.textContent = "You've solved " + personal + (personal === 1 ? ' puzzle.' : ' puzzles.')
+          + (count == null ? '' : ' ' + count + ' solved by everyone.');
       });
     }
 
-    function startGame() {
-      if (running) return;
-      running = true;
-      stage.querySelectorAll('.falling-call').forEach(el => el.remove());
-      score = 0; timeLeft = DURATION;
-      scoreEl.textContent = 0; timeEl.textContent = timeLeft;
-      overlay.classList.remove('show');
-      startBtn.textContent = '▶ Restart';
-      spawnInt = setInterval(spawnCall, 700);
-      tickInt = setInterval(() => {
-        timeLeft--;
-        timeEl.textContent = Math.max(timeLeft, 0);
-        if (timeLeft <= 0) endGame();
+    function setCellValue(val) {
+      if (!selected || progress.solved) return;
+      const [r, c] = selected;
+      if (isGiven(r, c)) return;
+      progress.grid[r][c] = val;
+      if (val !== 0 && val !== solution[r][c]) {
+        progress.mistakes++;
+        mistakesEl.textContent = progress.mistakes;
+      }
+      persist();
+      renderBoard();
+      checkWin();
+    }
+
+    numberPad.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (btn) setCellValue(Number(btn.dataset.num));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!selected || progress.solved) return;
+      if (e.key >= '1' && e.key <= '9') setCellValue(Number(e.key));
+      else if (e.key === 'Backspace' || e.key === 'Delete') setCellValue(0);
+    });
+
+    function showCopyToast() {
+      sudokuToast.classList.add('show');
+      setTimeout(() => sudokuToast.classList.remove('show'), 3000);
+    }
+
+    shareBtn.addEventListener('click', () => {
+      const text = Sudoku.buildShareText(puzzleData.number, progress.elapsed, progress.mistakes);
+      Sudoku.shareResult(text).then(() => {
+        if (!navigator.share) showCopyToast();
+      }).catch(() => {});
+    });
+
+    timerEl.textContent = formatTime(progress.elapsed);
+    mistakesEl.textContent = progress.mistakes;
+    renderBoard();
+
+    if (progress.solved) {
+      finalTimeEl.textContent = formatTime(progress.elapsed);
+      overlayMsg.textContent = 'Already solved today — nice work. Come back tomorrow for a new one.';
+      overlay.classList.add('show');
+    } else {
+      timerInterval = setInterval(() => {
+        progress.elapsed++;
+        timerEl.textContent = formatTime(progress.elapsed);
+        persist();
       }, 1000);
     }
-
-    function endGame() {
-      running = false;
-      clearInterval(spawnInt); clearInterval(tickInt);
-      stage.querySelectorAll('.falling-call').forEach(el => el.remove());
-      const b = Math.max(bestScore(), score);
-      localStorage.setItem('gr_catchcall_best', b);
-      bestEl.textContent = b;
-      finalScoreEl.textContent = score;
-      overlayMsg.textContent = score >= 15
-        ? "Vobiz AI is hiring 👀"
-        : score >= 8
-          ? "Not bad — real call centers need faster reflexes."
-          : "Ouch, that's a lot of dropped calls.";
-      overlay.classList.add('show');
-      startBtn.textContent = '▶ Play Again';
-    }
-
-    startBtn.addEventListener('click', startGame);
   })();
 
   /* ── KONAMI CODE EASTER EGG ── */
